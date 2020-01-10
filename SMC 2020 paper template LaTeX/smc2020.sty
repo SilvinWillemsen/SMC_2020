@@ -4,7 +4,7 @@
 % Version 2011.12.29
 % Adapted for Sound And Music computing conferences
 % The bibliography style is now the most recent IEEEtran.bst
-
+\usepackage{array}
 \def\Hline{\noalign{\hrule height 0.4mm}}
 %\newcommand{\bm}[1]{\mbox{\boldmath{$#1$}}}
 \newcommand{\figbox}[1]{\fbox{\parbox{\columnwidth}{\centering{ #1 }}}}
@@ -78,7 +78,7 @@
   \newpage
   \null
   \begin{center} {
-    \Large \bf \@title \par
+    \Large \bf \MakeUppercase{\@title} \par
   }
   \vskip 2.0em {
     \normalsize \lineskip .5em
@@ -109,10 +109,10 @@
 
 \def\twoauthors#1#2#3#4{
   \gdef\@author{
-  \begin{tabular}{@{}c@{}}
+  \hskip 0.3in\begin{tabular}{@{}c@{}}
     {\bf #1} \\
     #2
-  \end{tabular}\hskip 1.5in
+  \end{tabular}\hskip 1.0in
   \begin{tabular}{@{}c@{}}
     {\bf #3} \\
     #4\relax
@@ -136,6 +136,32 @@
   \end{tabular}
   }
 }
+
+% \def\fourauthors#1#2#3#4#5#6#7#8{
+%   \gdef\@author{
+%   $\!\!\!\!\!\!$\begin{tabular}{>{\centering\arraybackslash}p{\columnwidth} >{\centering\arraybackslash}p{\columnwidth}}
+%       \begin{tabular}{@{}c@{}}
+%         {\bf #1} \\
+%         #2
+%       \end{tabular} &
+%       \begin{tabular}{@{}c@{}}
+%         {\bf #3} \\
+%         #4
+%       \end{tabular}
+%       \\
+%       & \\
+%       \begin{tabular}{@{}c@{}}
+%         {\bf #5} \\
+%         #6
+%       \end{tabular}
+%       &
+%       \begin{tabular}{@{}c@{}}
+%         {\bf #7} \\
+%         #8\relax
+%       \end{tabular}
+%   \end{tabular}
+%   }
+% }
 
 \def\abstract{
   \begin{center}{

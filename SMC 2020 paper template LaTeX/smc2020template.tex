@@ -3,17 +3,19 @@
 % adapted from previous SMC paper templates
 % -----------------------------------------------
 
-\documentclass{article}
+\documentclass[dvipsnames]{article}
 \usepackage{smc2020}
 \usepackage{times}
 \usepackage{ifpdf}
 \usepackage[english]{babel}
 \usepackage{cite}
-
+\usepackage{multirow}
 %%%%%%%%%%%%%%%%%%%%%%%% Some useful packages %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%% See related documentation %%%%%%%%%%%%%%%%%%%%%%%%%%
-%\usepackage{amsmath} % popular packages from Am. Math. Soc. Please use the 
-%\usepackage{amssymb} % related math environments (split, subequation, cases,
+\usepackage{amsmath} % popular packages from Am. Math. Soc. Please use the 
+\usepackage{amssymb}
+\usepackage{cases}
+% related math environments (split, subequation, cases,
 %\usepackage{amsfonts}% multline, etc.)
 %\usepackage{bm}      % Bold Math package, defines the command \bf{}
 %\usepackage{paralist}% extended list environments
@@ -25,10 +27,13 @@
 
 
 %user defined variables
-\def\papertitle{PAPER TEMPLATE FOR SMC 2020}
-\def\firstauthor{First author}
-\def\secondauthor{Second author}
-\def\thirdauthor{Third author}
+\def\papertitle{Real-time Implementation of a Physical Model of the Tromba Marina} %using Finite-Difference Schemes}
+\def\firstauthor{Silvin Willemsen}
+\def\secondauthor{Stefan Bilbao}
+\def\thirdauthor{Michele Ducceschi}
+\def\fourthauthor{Stefania Serafin}
+% \def\firstauthor{Silvin Willemsen, Stefania Serafin}
+% \def\secondauthor{Stefan Bilbao and Michele Ducceschi}
 
 % adds the automatic
 % Saves a lot of output space in PDF... after conversion with the distiller
@@ -47,7 +52,7 @@
 \ifpdf % compiling with pdflatex
   \usepackage[pdftex,
     pdftitle={\papertitle},
-    pdfauthor={\firstauthor, \secondauthor, \thirdauthor},
+    pdfauthor={\firstauthor, \secondauthor, \thirdauthor, \fourthauthor},
     bookmarksnumbered, % use section numbers with bookmarks
     pdfstartview=XYZ % start with zoom=100% instead of full screen; 
                      % especially useful if working with a big screen :-)
@@ -104,24 +109,38 @@
 
 %Two addresses
 %--------------
-% \twoauthors
-%   {\firstauthor} {Affiliation1 \\ %
-%     {\tt \href{mailto:author1@smcnetwork.org}{author1@smcnetwork.org}}}
-%   {\secondauthor} {Affiliation2 \\ %
-%     {\tt \href{mailto:author2@smcnetwork.org}{author2@smcnetwork.org}}}
+\twoauthors
+  {\firstauthor{ and }\fourthauthor} {Multisensory Experience Lab, CREATE \\ Aalborg University Copenhagen \\
+    {\tt \href{mailto:sil@create.aau.dk}{\{sil, sts\}@create.aau.dk}}}
+  {\secondauthor{ and }\thirdauthor} {Acoustics and Audio Group \\ University of Edinburgh \\ %
+    {\tt {\{s.bilbao, michele.ducceschi\}@ed.ac.uk}}}
 
 % Three addresses
 % --------------
- \threeauthors
-   {\firstauthor} {Affiliation1 \\ %
-     {\tt \href{mailto:author1@smcnetwork.org}{author1@smcnetwork.org}}}
-   {\secondauthor} {Affiliation2 \\ %
-     {\tt \href{mailto:author2@smcnetwork.org}{author2@smcnetwork.org}}}
-   {\thirdauthor} { Affiliation3 \\ %
-     {\tt \href{mailto:author3@smcnetwork.org}{author3@smcnetwork.org}}}
-
+%  \threeauthors
+%   {\firstauthor} {Affiliation1 \\ %
+%      {\tt \href{mailto:author1@smcnetwork.org}{author1@smcnetwork.org}}}
+%   {\secondauthor} {Affiliation2 \\ %
+%      {\tt \href{mailto:author2@smcnetwork.org}{author2@smcnetwork.org}}}
+%   {\thirdauthor} { Affiliation3 \\ %
+%      {\tt \href{mailto:author3@smcnetwork.org}{author3@smcnetwork.org}}}
+% \fourauthors
+%   {\firstauthor} {Multisensory Experience Lab, CREATE \\ Aalborg University Copenhagen \\ %
+%      {\tt \href{mailto:sil@create.aau.dk}{sil@create.aau.dk}}}
+%   {\secondauthor} {Acoustics and Audio Group \\ University of Edinburgh \\ %
+%      {\tt \href{mailto:s.bilbao@ed.ac.uk}{s.bilbao@ed.ac.uk}}}
+%     {\thirdauthor} {Acoustics and Audio Group \\ University of Edinburgh \\ %
+%      {\tt \href{mailto:michele.ducceschi@ed.ac.uk}{michele.ducceschi@ed.ac.uk}}}
+%   {\fourthauthor} {Multisensory Experience Lab, CREATE \\ Aalborg University Copenhagen \\ %
+%      {\tt \href{mailto:sts@create.aau.dk}{sts@create.aau.dk}}}
 
 % ***************************************** the document starts here ***************
+\usepackage{xcolor}
+\def\SBcomment[#1]{\textcolor{Red}{#1}}
+\def\SWcomment[#1]{\textcolor{Orange}{#1}}
+\def\MDcomment[#1]{\textcolor{Blue}{#1}}
+\def\SScomment[#1]{\textcolor{OliveGreen}{#1}}
+
 \begin{document}
 %
 \capstartfalse
@@ -129,126 +148,141 @@
 \capstarttrue
 %
 \begin{abstract}
-The abstract should be placed at the top left column and should contain about 150-200 words.
+You can place comments in colour if you want :) Like \SBcomment[this (Stefan)], \MDcomment[this (Michele)] or \SScomment[this (Stefania)].
 \end{abstract}
 %
 
 \section{Introduction}\label{sec:introduction}
-This template includes all the information about formatting manuscripts for 
-the SMC 2020 Conference.
-Please, use \LaTeX{} templates when 
-preparing your submission.
-Please follow these guidelines to give the final proceedings a professional look.
-If you have any questions, you may contact the SMC 2020 organizers.
-This template can be downloaded from the SMC 2020 web site:\\
-https://www.smc2020torino.it/uk/page.asp?PID=135
+Physical modelling for sound synthesis knows a long history. Throughout the past few decades, several techniques have been developed to simulate real-world instruments, including mass-spring systems~\cite{cadoz79, cadoz83, cadoz1993cordis}, digital waveguides~\cite{smith1992physical} and modal synthesis~\cite{morrison1993mosaic}. 
 
-\section{Page size and format}
-\label{sec:page_size}
-The SMC 2020 proceedings will be formatted as portrait \underline{A4-size papers (21.0~cm x 29.7~cm)}. All material on each page should fit within a rectangle of 17.2~cm x 25.2~cm, centered on the page, beginning 2.0~cm from the top of the page and ending with 2.5~cm from the bottom. The left and right margins should be 1.9~cm. The text should be in two 8.2~cm columns with a 0.8~cm gutter. All text must be in a two-column format, and justified.
-The maximum allowed length is {\bf8 pages} (for both lecture and poster presentations). However, a length of {\bf6 pages} is \underline{strongly encouraged}.
+Finite-difference time-domain (FDTD) methods have first been used for sound synthesis in~\cite{Ruiz1969, Hiller1971, Hiller2}, later by other authors in~\cite{Chaigne92, Chaigne} and elaborated upon in~\cite{bilbao2009numerical, Bilbao2018:Tutorial}. As compared to other techniques, FDTD methods are more computationally expensive, but easily generalisable and accurate. Our goal is to implement these accurate techniques in real-time and thereby make the simulations playable for the users. 
 
+The behaviour of musical instruments can be well described by partial-differential equations (PDEs). \textbf{$\leftarrow$ probably used exactly like this before}
 
-\section{Typeset Text}\label{sec:typeset_text}
+Simulating musical instruments using physical models has several purposes. One of these is the resurrection of instruments that, due to fragility, rarity or value, can not be played anymore. In this paper, we present a real-time implementation of a physical model of the tromba marina, a tall bowed monochord from medieval Europe~\cite{encyclopaedia2020}. One string rests on a loose bridge that rattles against the body when the string is bowed. Interestingly, this creates a sound that has trumpet-like qualities, hence the name. 
 
-\subsection{Normal or Body Text}
-\label{subsec:body}
-Please use a 10~pt (point) Times font. Use sans-serif or non-proportional fonts only for special purposes, such as distinguishing source code.
+For the non-linear collisions present in the instrument, a method recently proposed in the field of audio by Ducceschi and Bilbao in~\cite{Ducceschi2019} has been used. As it replaces the use of iterative solvers, such as Newton-Raphson, it perfectly serves our goal of creating a real-time implementation of the tromba marina.
 
-The first paragraph in each section should not be indented, 
-but all other paragraphs should be.
+This paper is structured as follows: Section \ref{sec:models} presents the models used, Section \ref{sec:disc} shows 
 
-\subsection{Title and Authors}
-The title is 16~pt Times, bold, caps, upper case, centered. Authors' names are centered. The lead author's name is to be listed first (left-most), and the co-authors' names after. If the addresses for all authors are the same, include the address only once, centered. If the authors have different addresses, put the addresses, evenly spaced, under each authors' name.
-
-\subsection{First Page Copyright Notice}
-Please leave the copyright notice exactly as it appears in the lower left-hand corner of the first page. It is set in 8~pt Times.
-
-\subsection{Page Numbering, Headers and Footers}
-Do not include headers, footers or page numbers in your submission. These will be added electronically at a later stage, when the publications are assembled.
-
-\section{Headings}
-First level headings are in Times 12~pt bold, centerd with 1 line of space above the section head, and 1/2 space below it.
-For a section header immediately followed by a subsection header, the space should be merged.
-
-\subsection{Second Level Headings}
-Second level headings are in Times 10~pt bold, flush left, with 1 line of space above the section head, and 1/2 space below it. The first letter of each significant word is capitalized.
-
-\subsubsection{Third Level Headings}
-Third level headings are in Times 10~pt italic, flush left, with 1/2 line of space above the section head, and 1/2 space below it. The first letter of significant words is capitalized.
-
-Using more than three levels of headings is strongly discouraged.
-
-
-
-
-
-\section{Floats and equations}
-
-\subsection{Equations}
-Equations should be placed on separated lines and numbered. The number should be on the right side, in parentheses.
-\begin{equation}
-r=\sqrt[13]{3}
-\label{eq:BP}
+\section{Models}\label{sec:models}
+The tromba marina can be subdivided into three main components: the string, the bridge and the body. In this section, the PDEs of the different components in isolation will be given in the form
+\begin{equation}\label{eq:PDEform}
+    \mathcal{L}u = 0,
 \end{equation}
-Always refer to equations like this: ``Equation (\ref{eq:BP}) is of particular interest because...''
+with linear partial differential operator $\mathcal{L}$ and $u = u(\boldsymbol{x},t)$ describes the component state over time $t$ and space $\boldsymbol{x}\in\mathcal{D}$, where the dimensions of domain $\mathcal{D}$ depend on the component at hand. Furthermore, the following shorthand notation is used
+\begin{equation}
+     \frac{\partial}{\partial t} = \partial_t, \ \ \frac{\partial^2}{\partial t^2} = \partial^2_t, \ \ \frac{\partial^2}{\partial x^2} = \partial^2_x,\ \ \frac{\partial^3}{\partial t\partial x^2} = \partial_t\partial^2_x,
+\end{equation}
+for derivatives with respect to time $t$ and space $x$. As different models share variable names, subscripts `$\text{s}$', `$\text{m}$' and `$\text{p}$' are added to denote that the variable either applies to the string, bridge (mass) or body (plate).
 
-\subsection{Figures, Tables and Captions}
-\begin{table}[t]
- \begin{center}
- \begin{tabular}{|l|l|}
-  \hline
-  String value & Numeric value \\
-  \hline
-  Moin! SMC & 2020 \\
-  \hline
- \end{tabular}
-\end{center}
- \caption{Table captions should be placed below the table,  like this.}
- \label{tab:example}
-\end{table}
+\subsection{Bowed Stiff string}
+Consider a damped stiff string of length $L$ (m), with domain $\mathcal{D} = \mathcal{D}_\text{s} = [0,L]$ and state variable $u = u_\text{s}(x,t)$. We define the operator $\mathcal{L} = \mathcal{L_\text{s}}$ as
+\begin{equation}
+    \mathcal{L}_\text{s} = \rho_\text{s} A \partial_t^2 - T\partial_x^2 + E_\text{s}I\partial_x^4+2\rho_\text{s} A\sigma_{0,\text{s}}\partial_t-2\rho_\text{s} A\sigma_{1,\text{s}}\partial_t\partial_x^2,
+\end{equation}
+with material density $\rho_\text{s}$ (kg$\cdot$m$^{-3}$), cross-sectional area $A = \pi r^2$ (m$^2$), radius $r$ (m), tension $T = (2f_{0,\text{s}})^2\rho_\text{s}A$ (N), fundamental frequency $f_{0,\text{s}}$ (s$^{-1}$), Young's modulus $E_\text{s}$ (Pa), moment of inertia $I=\pi r^4 / 4$ (m$^4$), and loss coefficients $\sigma_{0,\text{s}}$ (s$^{-1}$) and $\sigma_{1,\text{s}}$ (m$^2$/s). We set the boundary conditions to be clamped so that
+\begin{equation}\label{boundary}
+    u_\text{s} = \partial_xu_\text{s} = 0, \quad \text{where} \quad x = \{0, L\}.
+\end{equation}
+As the string is excited using a bow, Equation \eqref{eq:PDEform} is rewritten to
+\begin{equation}\label{eq:bowedSting}
+    \mathcal{L}_\text{s}u_\text{s} = -\delta(x-x_\text{b})F_\text{b}\Phi(v_\text{rel}),
+\end{equation}
+with externally supplied bowing force $F_\text{b} = F_\text{b}(t)$ (N), spatial Dirac delta function $\delta(x-x_\text{b})$ selecting the bowing position $x_\text{b} = x_\text{b}(t)\in \mathcal{D}_\text{s}$ (m), dimensionless friction characteristic
+\begin{equation}
+    \Phi(v_\text{rel}) = \sqrt{2a}v_\text{rel}e^{-av_\text{rel}^2+1/2},
+\end{equation}
+with free parameter $a$ and the relative velocity between the string at bowing location $x_\text{b}$ and the externally supplied bowing velocity $v_\text{b} = v_\text{b}(t)$ (m/s):
+\begin{equation}
+    v_\text{rel} = \partial_tu_\text{s}(x_\text{b},t) - v_\text{b}.
+\end{equation}
 
-All artwork must be centered, neat, clean and legible. Figures should be centered, neat, clean
-and completely legible. All lines should be thick and dark enough for purposes of reproduction. Artwork should not be hand-drawn. The proceedings will be distributed in electronic form only, therefore color figures are allowed. However, you may want to check that your figures are understandable even if they are printed in black-and-white.
+\subsection{Bridge}
+The bridge is modelled as a simple mass with a linear restoring force. As this system is zero-dimensional, the state variable $u = u_\text{m}(t)$ and the definition of domain $\mathcal{D}$ is unnecessary. The operator $\mathcal{L}=\mathcal{L}_\text{m}$ is defined as
+\begin{equation}
+    \mathcal{L}_\text{m}=M\partial_t^2+M\omega_0^2+MR\partial_t,
+\end{equation}
+with mass $M$ (kg), linear angular frequency of oscillation $\omega_0=2\pi f_{0,\text{m}}$,  (s$^{-1}$), fundamental frequency $f_{0,\text{m}}$ (s$^{-1}$) and damping coefficient $R$ (s$^{-1}$).
+\subsection{Body}
+The body is simplified to a two-dimensional plate with side-lengths $L_x$ and $L_y$, domain $\mathcal{D} = \mathcal{D}_\text{p} = [0,L_x] \times [0,L_y]$ and state variable $u = u_\text{p}(x,y,t)$. Using the 2D Laplacian
+\begin{equation}
+    \Delta \triangleq \partial_x^2+\partial_y^2,
+\end{equation}
+the operator $\mathcal{L} = \mathcal{L}_\text{p}$ can be defined as
+\begin{equation}
+    \mathcal{L}_\text{p} = \rho_\text{p}H\partial_t^2 + D\Delta\Delta +2\rho_\text{p}H\sigma_{0,\text{p}}\partial_t-2\rho_\text{p}H\sigma_{1,\text{p}}\partial_t\Delta,
+\end{equation}
+with material density $\rho_\text{p}$ (kg$\cdot$m$^{-3}$), plate thickness $H$ (m), stiffness coefficient $D = E_\text{p}H^3/12(1-\nu^2)$, Young's modulus $E_\text{p}$ (Pa) and dimensionless Poisson's ratio $\nu$, and loss coefficients $\sigma_{0,\text{p}}$ (s$^{-1}$) and $\sigma_{1,\text{p}}$ (m$^2$/s). As with the stiff string, the boundary conditions of the plate are set to be clamped so that
+\begin{equation}
+    u_\text{p} = {\bf n} \cdot \nabla u_\text{p} = 0.
+\end{equation}
+where $\nabla u$ is the gradient of $u$.
+\subsection{Collisions}
+It can be argued that the greatest contriubutor to the characteristic sound of the tromba marina is the rattling bridge colliding with the body. A collision can be modelled by including a term to the PDEs described above describing the potential energy of the system (further referred to as \textit{the potential}) \cite{Ducceschi2019}
+\begin{equation}\label{eq:potential}
+    \phi(\eta) = \frac{K}{\alpha+1}[\eta]_+^{\alpha+1}, \quad K \geq 0,\quad \alpha \geq 1,
+\end{equation}
+where $K$ is the collision stiffness (N/m), $\alpha$ is the non-linear collision coefficient \textbf{check units here..}, and $\eta$ is the distance between the colliding objects (m). Furthermore, $[\eta]_+ = 0.5(\eta+|\eta|)$ is the positive part of $\eta$. The term which can then be included in the schemes is $\phi'(\eta) = d\phi/d\eta$. As described in \cite{Ducceschi2019}, using this form of the potential requires using iterative methods for solving its discrete counterpart. The authors proposed to rewrite the potential to
+\begin{equation}
+    \psi = \sqrt{2\phi},
+\end{equation}
+and the term included in the schemes to
+\begin{equation}
+    \phi' = \psi\psi' = \psi\frac{d\psi}{d\eta}
+\end{equation}
+which, as can be seen in Section \ref{sec:disc}, can be explicitly calculated. 
 
+As the string rests on the bridge, the interaction between these components needs to be modelled as well. We can use an alternative version of the potential in Equation~\eqref{eq:potential} described in \cite{Bilbao2019} to make the collision two-sided acting as a connection:
+\begin{equation}
+    \phi(\eta) = \frac{K}{\alpha+1}|\eta|^{\alpha+1}.
+\end{equation}
+%
+Using subscripts `$\text{sm}$' and `$\text{mp}$' to denote string-mass and mass-plate potentials, and including the effect of the bow from Equation \eqref{eq:bowedSting}, Equation \eqref{eq:PDEform} for all components can be rewritten to get the complete system:
+\begin{subnumcases}{\label{eq:potentials}}
+% \begin{aligned}
+    \mathcal{L}_\text{s}u_\text{s} &$=-\delta(x-x_\text{b})F_\text{b}\Phi(v_\text{rel}) + \psi_\text{sm}\psi_\text{sm}'$,\qquad \label{eq:stringPotential}\\
+    \mathcal{L}_\text{m}u_\text{m} &$= -\psi_\text{sm}\psi_\text{sm}' + \psi_\text{mp}\psi_\text{mp}',$\label{eq:massPotential}\\
+    \mathcal{L}_\text{p}u_\text{p} &$= -\psi_\text{mp}\psi_\text{mp}',$\label{eq:platePotential}\\
+    \eta_\text{sm} &$= u_\text{m} - u_\text{s}(x_\text{sm}, t),$\\
+    \eta_\text{mp} &$=  u_\text{p}(x_\text{mp}, y_\text{mp}, t) - u_\text{m},$
+% \end{aligned}
+\end{subnumcases}
+where $x_\text{sm} \in \mathcal{D}_\text{s}$ is the location of the bridge along the string and $(x_\text{mp}, y_\text{mp}) \in \mathcal{D}_\text{p}$ is where the bridge collides with the body.
 
-Numbers and captions of figures and tables always appear below the figure/table.
-Leave 1 line space between the figure or table and the caption.
-Figure and tables are numbered consecutively. 
-Captions should be Times 10pt. Place tables/figures in the text as close to the reference as possible, 
-and preferably at the top of the page.
+Note that the potentials of belonging to a single collision 
+in the above system have inverse signs as the collision force acts inversely on the two components. \textbf{not sure if this sentence is necessary, and otherwise rewrite..}
+\section{Discretisation}\label{sec:disc}
 
-Always refer to tables and figures in the main text, for example: ``see Fig. \ref{fig:example} and \tabref{tab:example}''.
-Figures and tables may extend across both columns to a maximum width of 17.2cm.
+\section{Implementation}
+The real-time implementation of the system has been done in C++ using the JUCE framework \cite{JUCE2020}.
+Initialisation is important. Both $\eta_\text{sm}$ and $\eta_\text{mp}$ need to be realistically chosen at sample $n=0$, i.e. $\eta_\text{sm}^0 = 0$ and $\eta_\text{mp}^0 \leq 0$.
 
-Vectorial figures are preferred, e.g., eps. When using \texttt{Matlab}, export using either (encapsulated) Postscript or PDF format. In order to optimize readability, the font size of text within a figure should be no smaller than
-that of footnotes (8~pt font-size). If you use bitmap figures, make sure that the resolution is high enough for print quality. 
+Through empirical testing it was decided to retrieve the output from the state of the mass $u_\text{m}^n$ \textbf{(or the plate right at the point of collision $(x_\text{mp},y_\text{mp})$)} as the sound from the string and the plate were too dull. It can be argued that the loudest sound comes from the collision between the bridge and the body making it logical to select this point as the output position. 
 
-\begin{figure}[t]
-\centering
-\includegraphics[width=0.6\columnwidth]{figure}
-\caption{Figure captions should be placed below the figure, 
-exactly like this.\label{fig:example}}
-\end{figure}
-
-
-\subsection{Footnotes}
-You can indicate footnotes with a number in the text \footnote{This is a footnote example.},
-but try to work the content into the main text.Use 8~pt font-size for footnotes.  Place the footnotes at the bottom of the page 
-on which they appear. Precede the footnote with a 0.5~pt horizontal rule.
-
-\section{Citations}
-All bibliographical references should be listed at the end, inside a section named ``REFERENCES''. References must be numbered in order of appearance. You should avoid listing references that do not appear in the text.
-
-Reference numbers in the text should appear within square brackets, such as in~\cite{Someone:00} or~\cite{Someone:00,Someone:04,Someone:09}. The reference format is the standard IEEE one. We highly recommend you use BibTeX 
-to generate the reference list.
+\begin{tabular}{|l|c|c|}
+    \hline
+    Name & Symbol & Value\\ \hline
+    \multicolumn{3}{|l|}{\bf String}\\ \hline
+    Material density & $\rho_\text{s}$ & 7850\\ \hline
+    Radius & $r$ & 0.005\\ \hline
+    Fundamental frequency & $f_0$ & 50\\ \hline
+    Young's modulus & $E_\text{s}$ & 2e11\\ \hline
+    Frequency indep. loss & $\sigma_{0,\text{s}}$ & 0.1\\ \hline
+    Frequency dep. loss & $\sigma_{1,\text{s}}$ & 1\\ \hline
+    \multicolumn{3}{|l|}{\bf Bridge}\\\hline
+    Mass & $M$ & 0.001\\ \hline
+    Fundamental frequency & $f_{0,\text{m}}$ & 500\\ \hline
+    Damping & $R$ & 0.1\\ \hline
+    \multicolumn{3}{|l|}{\bf Body}\\ \hline
+\end{tabular}
 
 \section{Conclusions}
-Please, submit full-length papers. Submission is fully electronic and automated through the Conference Web Submission System. \underline{Do not} send papers directly by e-mail.
-
-
+Parameter design
 \begin{acknowledgments}
-At the end of the Conclusions, acknowledgements to people, projects, funding agencies, etc. can be included after the second-level heading  ``Acknowledgments'' (with no numbering).
+This work is supported by NordForsk's Nordic
+University Hub Nordic Sound and Music Computing Network
+NordicSMC, project number 86892.
 \end{acknowledgments} 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
