@@ -348,7 +348,17 @@ where $x_\text{sm} \in \mathcal{D}_\text{s}$ is the location of the bridge along
 Note that the potentials belonging to a single collision 
 in the above system have inverse signs as the collision force acts inversely on the two components. \textbf{not sure if this sentence is necessary, and otherwise rewrite..}
 \section{Discretisation}\label{sec:disc}
-The system found in the Equations in \eqref{eq:fullSystem} is discretised using FDTD methods. The discretisation of stiff strings, mass-spring systems and plates using these methods are well covered in the literature \cite{Bilbao2009:NumericalSoundSynthesis}. 
+The system found in the Equations in \eqref{eq:fullSystem} is discretised using FDTD methods. The discretisation of stiff strings, mass-spring systems and plates using these methods are well covered in the literature \cite{Bilbao2009:NumericalSoundSynthesis}. The discrete system will be
+\begin{subnumcases}{\label{eq:fullSystemDisc}}
+    % \begin{aligned}
+        \ell_\text{s}u_{\text{s,l}}^n &$=-J(x_\text{b})F_\text{b}\Phi(v_\text{rel}^n)$ \label{eq:stringPotential}\\
+        & $\quad\ \,\!\!+\  \delta(x-x_\text{sm})\psi_\text{sm}\psi_\text{sm}'$\nonumber\\
+        \ell_\text{m}u_\text{m} &$= -\psi_\text{sm}\psi_\text{sm}' + \psi_\text{mp}\psi_\text{mp}',$\label{eq:massPotential}\\
+        \ell_\text{p}u_\text{p} &$= -\delta(x-x_\text{mp}, y-y_\text{mp})\psi_\text{mp}\psi_\text{mp}',$\qquad\label{eq:platePotential}\\
+        \eta_\text{sm} &$= u_\text{m} - u_\text{s}(x_\text{sm}, t),$\\
+        \eta_\text{mp} &$=  u_\text{p}(x_\text{mp}, y_\text{mp}, t) - u_\text{m},$
+    % \end{aligned}
+    \end{subnumcases}
 
 To obtain the highest accuracy possible while keeping the system explicit (except for the bow), centered differences have been chosen where possible.
 
