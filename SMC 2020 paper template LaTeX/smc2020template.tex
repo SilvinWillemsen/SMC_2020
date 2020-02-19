@@ -495,32 +495,37 @@ where $g^n_\text{sm}$ and $g^n_\text{mp}$ can be explicitly computed according t
 
 One might think that due to the centered differences $\delta_{t\cdot}\eta^n$ still present in Equation \eqref{eq:qn}, our system remains implicit, but as we can insert the definitions for Equations \eqref{eq:etaSMDisc} and \eqref{eq:etaMPDisc} evaluated at the next sample $n+1$ which are already present in $\ell u$, the Equations in \eqref{eq:fullSystemDisc} reduce to a system of linear equations solved by a single division. \SWcomment[Does this make sense? I thought to add this paragraph to emphasise that the system is now actually explicit.]{}
 \section{Implementation}
-The real-time implementation of the system has been done in C++ using the JUCE framework \cite{JUCE2020}.
-Initialisation is important. Both $\eta_\text{sm}$ and $\eta_\text{mp}$ need to be realistically chosen at sample $n=0$, i.e. $\eta_\text{sm}^0 = 0$ and $\eta_\text{mp}^0 \leq 0$.
+The real-time implementation of the system has been done in C++ using the JUCE framework \cite{JUCE2020}. This section will elaborate on the algorithm and some important considerations regarding the setup of the system. 
 
-After $h_\text{p}$ is calculated in Equation \eqref{eq:gridSpacingPlate}, we check whether it is smaller than a set value $h_{\text{p},\text{min}} = 0.01$. This reduces the quality of the model, but increases the speed, allowing for real-time implementation.
-\\
-\textit{Notes about offset}
-\\
-For more realistic and expressive sounds, we modelled the bridge to rest slightly above the body. Expanding $\ell_\text{m}u_\text{m}$ in \eqref{eq:massDisc} and including the offset yields
-\begin{equation}
+Firstly, for more realistic and expressive sounds, we modelled the bridge -- and with that, the string -- to rest slightly above the body. Expanding $\ell_\text{m}u_\text{m}$ in \eqref{eq:massDisc} and including the offset yields
+\begin{equation}\label{eq:offset}
     \ell_\text{m}u_\text{m}^n = M\delta_{tt}u_\text{m}^n+M\omega_0^2(u^n-u_\text{off})+MR\delta_{t\cdot}u_\text{m}^n
 \end{equation}
-where $u_\text{off} \geq 0$ is a predefined offset between the body and the bridge. Furthermore the second-order time derivative can be defined from the definitions in \eqref{eq:discTimeOperators} as
+where $u_\text{off} \geq 0$ is a predefined offset between the body and the bridge. Furthermore, the second-order time derivative can be defined from the definitions in \eqref{eq:discTimeOperators} as
 \begin{equation}
     \delta_{tt} = \delta_{t+}\delta_{t-}\ .
 \end{equation}
 The boundary condition of the string will also change to:
 \begin{equation}
-    u_\text{s} = u_\text{off}\quad \text{and} \quad \partial_xu_\text{s}=0.
+    u_\text{s} = u_\text{off}\quad \text{and} \quad \partial_x^2u_\text{s}=0.
 \end{equation}
-A schematic plot of the full system can be found in Figure 
+A schematic plot of the full system, including the offset described above (Eq. \eqref{eq:offset}) can be found in Figure \ref{fig:trombaSystem}.
 
-  
-\begin{figure}
+Secondly, in order to play different pitches on the instrument, a damping finger inspired by \cite{Willemsen2019:SMC2020} is implemented. The FDS for the string in \eqref{eq:stringDisc} can be extended to
+\begin{gather}\label{eq:dampingFinger}
+    \ell_\text{s} u_{l,\text{s}}^n = \hdots - J_3(x_\text{f})I_3(x_\text{f})u^n_lF_\text{f},\\
+   \text{where} \quad 0\leq F_\text{f} \leq 1,\nonumber
+\end{gather}
+where $I_3$ is the cubic interpolation operator. Equation \eqref{eq:dampingFinger} essentially subtracts its own state at location $x_\text{f}$ according to the finger force $F_\text{f}$ applied. As done in \cite{Willemsen2019:SMC2020}, the fractional part used in the spreading operator ($\alpha_\text{i} = x_\text{f}/h - \text{floor}(x_\text{f}/h)$) is raised to the 7th power as it has been empirically found to scale finger position to pitch more properly in the context of FDSs. For lower values for $F_\text{f}$, energy from the bowed side of the string still transfers to the bridge side.
+
+Realistic initialisation of $\eta$ is essential. Both $\eta_\text{sm}$ and $\eta_\text{mp}$ need to be realistically chosen at sample $n=0$, i.e. $\eta_\text{sm}^0 = 0$ and $\eta_\text{mp}^0 \leq 0$. If this is not done, the value for the potential at the previous time step $\psi^{n-1/2}$ would not make sense \textbf{(perhaps elaborate)}.
+
+After $h_\text{p}$ is calculated in Equation \eqref{eq:gridSpacingPlate}, we check whether it is smaller than a set value $h_{\text{p},\text{min}} = 0.01$. This reduces the quality of the model, but increases the speed, allowing for real-time implementation.
+
+\begin{figure}[h]
   \centering
   \includegraphics[width=1.0\columnwidth]{trombaSystem.eps}
-  \caption{The virtual system in Equations \eqref{eq:fullSystemDisc}}
+  \caption{The virtual system in Equations \eqref{eq:fullSystemDisc} including the offset in Eq. \eqref{eq:offset}, with different important coordinates highlighted. Note that $\eta_\text{sm}$ is not shown as it is close to 0 at all times. }
   \label{fig:trombaSystem}
 \end{figure}
 
@@ -533,14 +538,7 @@ and $g_\text{mp}^n$ using \eqref{eq:phiConnection}
     g_\text{mp}^n =\sqrt{\frac{K_\text{mp}(\alpha_\text{mp} + 1)}{2}} |\eta_\text{mp}^n|^{\frac{\alpha_\text{mp} - 1}{2}}\ .
 \end{equation}
 %
-The damping finger inspired by \cite{Willemsen2019:SMC2020} is implemented by extending the FDS for the string as
-\begin{gather}\label{eq:dampingFinger}
-    \ell_\text{s} u_{l,\text{s}}^n = \hdots - J_3(x_\text{f})I_3(x_\text{f})u^n_lF_\text{f},\\
-   \text{where} \quad 0\leq F_\text{f} \leq 1,\nonumber
-\end{gather}
-where $I_3$ is the cubic interpolation operator. Equation \eqref{eq:dampingFinger} essentially subtracts its own state at location $x_\text{f}$ according to the finger force $F_\text{f}$ applied. As done in \cite{Willemsen2019:SMC2020}, the fractional part used in the spreading operator ($\alpha_\text{i} = x_\text{f}/h - \text{floor}(x_\text{f}/h)$) is raised to the 7th power as it has been empirically found to scale finger position to pitch more properly in the context of FDSs.
-
-Through empirical testing it was decided to retrieve the output from the state of the plate right at the point of collision $(x_\text{mp},y_\text{mp})$ as the sound from the string and the mass were too dull. It can be argued that the loudest sound comes from the collision between the bridge and the body making it logical to select this point as the output position. 
+Lastly, through empirical testing it was decided to retrieve the output from the state of the plate right at the point of collision $(x_\text{mp},y_\text{mp})$ combined with the sound of the string at a lower volume. It can be argued that the loudest sound comes from the collision between the bridge and the body making it logical to select this point as the output position. 
 \subsection{Order of calculation} 
 \begin{algorithm}[ht]
 \fbox{\parbox{0.9\linewidth}{
@@ -596,7 +594,8 @@ $\boldsymbol{\psi}^{n-1/2} = \boldsymbol{\psi}^{n+1/2}$
     \multicolumn{3}{|l|}{\bf Bridge}\\ \hline
     Mass & $M$ (kg) & $0.001$\\ 
     Fundamental freq. & $f_{0,\text{m}}$ (s$^{-1}$) & $500$\\ 
-    Damping & $R$ (s$^{-1}$)& $0.05$\\ \hline
+    Damping & $R$ (s$^{-1}$)& $0.05$\\
+    Offset & $u_\text{off}$ & $5\cdot 10^{-6}$\\\hline
     \multicolumn{3}{|l|}{\bf Body}\\ \hline
     Length & $L_x$ (m)& $1.35$\\ 
     Width & $L_y$ (m)& $0.18$\\ 
@@ -609,8 +608,7 @@ $\boldsymbol{\psi}^{n-1/2} = \boldsymbol{\psi}^{n+1/2}$
     \multicolumn{3}{|l|}{\bf String-bridge connection}\\\hline
     Stiffness Coefficient & $K_\text{sm}$ (N/m) & $5\cdot10^{6}$\\
     Non-lin. col. coeff. &$\alpha_\text{sm}$ (-) & 1.0\\
-    Bridge location & $x_\text{sm}$ (m)& $1.65$
-    \\
+    Bridge location & $x_\text{sm}$ (m)& $1.65$\\
     \hline
     \multicolumn{3}{|l|}{\bf Bridge-body collision}\\\hline
     Stiffness Coefficient & $K_\text{mp}$ (N/m) & $5\cdot10^{8}$\\
@@ -625,11 +623,15 @@ $\boldsymbol{\psi}^{n-1/2} = \boldsymbol{\psi}^{n+1/2}$
 
 As can be seen from Table \ref{tab:parameters}, the non-linear collision coefficients $\alpha_\text{sm}$ and $\alpha_\text{mp}$ are set to $1$. We found some odd behaviour when increasing this value, where the 
 \section{Conclusions}
-Comparison between NR and Non-iterative methods (both speed and quality) Parameter design
+Comparison between NR and Non-iterative methods (both speed and quality)
+
+Parameter design
+
+For a more physical implementation of the damping finger, it might be a good idea to model it as another mass colliding with the string rather than imposing a `hacky' way of damping onto the string state. 
 \begin{acknowledgments}
 This work is supported by NordForsk's Nordic
 University Hub Nordic Sound and Music Computing Network
-NordicSMC, project number 86892. \MDcomment[MD's work was supported by an Early Career Fellowship from the Leverhulme Trust]{}
+NordicSMC, project number 86892. \MDcomment[Ducceschi's work was supported by an Early Career Fellowship from the Leverhulme Trust.]{}
 \end{acknowledgments} 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
