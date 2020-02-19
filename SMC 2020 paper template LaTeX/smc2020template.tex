@@ -68,8 +68,8 @@
   \usepackage{graphicx}
   % declare the path(s) where your graphic files are and their extensions so 
   %you won't have to specify these with every instance of \includegraphics
-  \graphicspath{{./figures/}}
-  \DeclareGraphicsExtensions{.pdf,.jpeg,.png}
+  \graphicspath{{./SMC 2020 paper template LaTeX/}}
+  \DeclareGraphicsExtensions{.pdf,.jpeg,.png, .eps}
 
   \usepackage[figure,table]{hypcap}
 
@@ -82,7 +82,7 @@
   \usepackage[dvips]{epsfig,graphicx}
   % declare the path(s) where your graphic files are and their extensions so 
   %you won't have to specify these with every instance of \includegraphics
-  \graphicspath{{./figures/}}
+  \graphicspath{{./SMC 2020 paper template LaTeX/}}
   \DeclareGraphicsExtensions{.eps}
 
   \usepackage[figure,table]{hypcap}
@@ -512,8 +512,18 @@ where $u_\text{off} \geq 0$ is a predefined offset between the body and the brid
 \end{equation}
 The boundary condition of the string will also change to:
 \begin{equation}
-    u_\text{s} = u_\text{off}\quad \text{and} \quad \partial_xu_\text{s}=0
+    u_\text{s} = u_\text{off}\quad \text{and} \quad \partial_xu_\text{s}=0.
 \end{equation}
+A schematic plot of the full system can be found in Figure 
+
+  
+\begin{figure}
+  \centering
+  \includegraphics[width=1.0\columnwidth]{trombaSystem.eps}
+  \caption{The virtual system in Equations \eqref{eq:fullSystemDisc}}
+  \label{fig:trombaSystem}
+\end{figure}
+
 When writing out \eqref{eq:analytic} we can obtain definitions for $g_\text{sm}^n$ using \eqref{eq:potential}
 \begin{equation}\label{eq:gnSM}
     g_\text{sm}^n =\sqrt{\frac{K_\text{sm}(\alpha_\text{sm}+1)}{2}}[\eta_\text{sm}^n]_+^{\frac{\alpha_\text{sm}-1}{2}}\ ,
