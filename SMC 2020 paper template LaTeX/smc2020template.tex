@@ -642,6 +642,12 @@ The list of parameters used can be found in Table \ref{tab:parameters}.
 Regarding the output of the system, through empirical testing it was decided to retrieve the output from the state of the plate right at the point of collision $(x_\text{mp},y_\text{mp})$ combined with the sound of the string at a lower volume. It can be argued that the loudest sound comes from the collision between the bridge and the body making it logical to select this point as the output position. 
 
 \subsection{Graphical User Interface}
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=1.0\columnwidth]{appl.eps}
+  \caption{The virtual system in Equations \eqref{eq:fullSystemDisc} including the offset in Eq. \eqref{eq:offset}, with different important coordinates highlighted. Note that $\eta_\text{sm}$ (Eq. \eqref{eq:etaSMDisc}) is not shown as it is close to 0 at all times. }
+  \label{fig:trombaSystem}
+\end{figure}
 
 \subsection{Sensel Morph and Mapping}
 The Sensel is an expressive touch controller using \texttildelow20,000 pressure sensitive sensors laid out in an hexagonal grid\cite{sensel2020}. It retrieves x and y positions and pressure from which it calculates velocities and accelerations.
