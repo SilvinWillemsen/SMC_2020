@@ -195,10 +195,6 @@ Physical modelling for sound synthesis has a long history. Various techniques ha
 
 Finite-difference time-domain (FDTD) methods were first used for sound synthesis by Hiller and Ruiz in ~\cite{Ruiz1969, Hiller1971, Hiller2}, and later by Chaigne et al. in ~\cite{Chaigne92, Chaigne} and elaborated upon by Bilbao and colleagues in ~\cite{bilbao2009numerical, Bilbao2018:Tutorial}. Compared with other techniques, FDTD methods are more computationally expensive, but easily generalisable and flexible---no assumptions of linearity of travelling wave solutions are employed. Our goal is to implement these accurate techniques in real-time and thereby make the simulations playable for the users. 
 
-The behaviour of musical instruments can be well described by partial-differential equations (PDEs). \textbf{$\leftarrow$ probably used exactly like this before}
-
-\SBcomment[Probably don't need this paragraph above]
-
 The emulation of nonlinear collision interactions in musical instruments normally requires the use of iterative solvers (such as, e.g. Newton-Raphson) \cite{Bilbao15}. For the non-linear collisions present in the instrument, a method recently proposed in the field of audio by Ducceschi and Bilbao in~\cite{Ducceschi2019} allows such iterative methods to be sidestepped. It is thus suited  to creating a real-time implementation of the tromba marina.
 
 This paper is structured as follows: Section \ref{sec:models} presents the models used, Section \ref{sec:disc} shows 
@@ -510,12 +506,12 @@ the discrete counterpart of the complete system described in Equations \eqref{eq
 %     % \end{aligned}
 % \end{subnumcases}
 \\
-where $g^n_\text{sm}$ and $g^n_\text{mp}$ can be explicitly computed according to Equation \eqref{eq:analytic}. Furthermore, the spreading operator for the bow $J_3$ uses cubic interpolation for finer control \cite{bilbao2009numerical}. 
+where $g^n_\text{sm}$ and $g^n_\text{mp}$ can be explicitly computed according to Equation \eqref{eq:analytic}. Furthermore, the spreading operator for the bow $J_3$ uses cubic interpolation for finer control \cite{bilbao2009numerical}. This leaves us with two different types of update equations, one where $u^{n+1}_{\boldsymbol{l}}$ is calculated and one where $\psi^{n+1/2}$ is calculated.
 
 One might think that due to the centered differences $\delta_{t\cdot}\eta^n$ still present in Equation \eqref{eq:qn}, our system remains implicit, but as we can insert the definitions for Equations \eqref{eq:etaSMDisc} and \eqref{eq:etaMPDisc} evaluated at the next sample $n+1$ which are already present in $\ell u$, the Equations in \eqref{eq:fullSystemDisc} reduce to a system of linear equations solved by a single division. \SWcomment[Does this make sense? I thought to add this paragraph to emphasise that the system is now actually explicit.]
 
 \section{Implementation}
-The real-time implementation of the system has been done in C++ using the JUCE framework \cite{JUCE2020} and will be controlled using the Sensel Morph (or simply Sensel) -- an expressive touch controller. This section will first elaborate some important considerations regarding the setup of the system. Then, the  Then the graphical user interface will be presented together with the Sensel and its mapping to the application.
+The real-time implementation of the system has been done in C++ using the JUCE framework \cite{JUCE2020} and will be controlled using the Sensel Morph (or simply Sensel) -- an expressive touch controller. This section will first elaborate some important considerations regarding the setup of the system. Then, the algorithm, together with the parameter design will be presented.  Finally, the graphical user interface (GUI) will detailed together with the Sensel and its mapping to the application.
 
 \subsection{Introducing an Offset}
 Firstly, for more realistic and expressive sounds, we model the bridge -- and with that, the string -- to rest slightly above the body. Expanding $\ell_\text{m}u_\text{m}$ in \eqref{eq:massDisc} and including the offset yields
@@ -539,12 +535,12 @@ A schematic plot of the full system, including the offset described above (Eq. \
 \end{figure}
 
 \subsection{Pitch Control}
-Secondly, as mentioned in Section \ref{sec:introduction}, the way different pitches are played on the tromba marina, is to slightly rest a knuckle or finger on nodal points along the string to induce harmonics. A damping finger inspired by \cite{Willemsen2019:SMC2020} is implemented. Using the cubic interpolation operator $I_3$ \cite{bilbao2009numerical}, the FDS for the string in \eqref{eq:stringDisc} can be extended to
+Secondly, as briefly mentioned in Section \ref{sec:introduction}, the way different pitches are played on the tromba marina, is to slightly rest a knuckle or finger on nodal points along the string to induce harmonics. Thus, a damping finger is implemented. Using the cubic interpolation operator $I_3$ \cite{bilbao2009numerical}, the FDS for the string in \eqref{eq:stringDisc} can be extended to
 \begin{gather}\label{eq:dampingFinger}
     \ell_\text{s} u_{l,\text{s}}^n = \hdots - J_3(x_\text{f})I_3(x_\text{f})\sigma_\text{f}(u^n_l-u_\text{off}),\\
    \text{where} \quad 0\leq \sigma_\text{f} \leq 1,\nonumber
 \end{gather}
-which essentially subtracts its own state at location $x_\text{f}$ according to the damping coefficient $\sigma_\text{f}$ (kg$ \cdot$ s$^{-2}$) applied. As done in \cite{Willemsen2019:SMC2020}, the fractional part used in the spreading operator ($\alpha_\text{i} = x_\text{f}/h - \text{floor}(x_\text{f}/h)$) is raised to the 7th power as it has been empirically found to scale finger position to pitch more properly in the context of FDSs. As the string is bowed above the damping finger (at the other side of the rattling bridge) it is   essential that the energy from the bow reaches the rattling bridge. For lower values for $\sigma_\text{f}$, this is still the case.
+which essentially subtracts its own state at location $x_\text{f} \in [0,0.5x_\text{sm}]$ according to the damping coefficient $\sigma_\text{f}$ (kg$ \cdot$ s$^{-2}$) applied. As done in \cite{Willemsen2019:SMC2020}, the fractional part used in the spreading operator ($\alpha_\text{i} = x_\text{f}/h - \text{floor}(x_\text{f}/h)$) is raised to the 7th power as it has been empirically found to scale finger position to pitch more properly in the context of FDSs. As the string is bowed above the damping finger (at the other side of the rattling bridge) it is   essential that the energy from the bow reaches the rattling bridge. For lower values for $\sigma_\text{f}$, this is still the case.
 
 \subsection{Other Considerations}
 Realistic initialisation both $\eta_\text{sm}$ and $\eta_\text{mp}$ is essential. In this case (at $n=0$) $\eta_\text{sm}^0 = 0$ and $\eta_\text{mp}^0 \leq 0$ so that no collision is present at initialisation. If this is not done, the value for the potential at the previous time step $\psi^{n-1/2}$ would not make sense \textbf{(perhaps elaborate)}.
@@ -589,7 +585,10 @@ $\boldsymbol{\psi}^{n-1/2} = \boldsymbol{\psi}^{n+1/2}$
 In theory, in order to iteratively calculate the bow force, the collision and connection forces should be included in this. \SWcomment[Hmm.. but the rest of the system is explicit. Shouldn't the system be calculated in its entirety before the NR calculation?] However, as the string is practically never bowed at the bridge position $x_\text{sm}$, these can be calculated independently.
 
 \subsection{Parameter design}
-The list of parameters used can be found in Table \ref{tab:parameters}. 
+The list of parameters used can be found in Table \ref{tab:parameters}. As the authors had a real (recreated) tromba marina (presented in \cite{Baldwin2016:SMC2020}) at their disposal, some parameters have been measured in accordance to the real instrument.
+
+Regarding the output of the system, through empirical testing it was decided to retrieve the output from the state of the plate right at the point of collision $(x_\text{mp},y_\text{mp})$ combined with the sound of the string at a lower volume. It can be argued that the loudest sound comes from the collision between the bridge and the body making it logical to select this point as the output position. 
+
 \begin{table}[t]\label{tab:parameters}
 \small
 \begin{center}
@@ -597,10 +596,10 @@ The list of parameters used can be found in Table \ref{tab:parameters}.
     \hline
     Name & Symbol (unit) & Value\\ \hline
     \multicolumn{3}{|l|}{\bf String}\\ \hline
-    Length & $L$ (m) & $1.90$\\
+    Length & $L$ (m) & $1.90$*\\
     Material density & $\rho_\text{s}$ (kg$\cdot$m$^{-3}$) & $7850$\\ 
     Radius & $r$ (m) & $0.0005$\\
-    Fundamental freq. & $f_0$ (s$^{-1}$)& $32.0$\\ 
+    Fundamental freq. & $f_0$ (s$^{-1}$)& $32.0$*\\ 
     Young's modulus & $E_\text{s}$ (Pa) & $2\cdot 10^{11}$\\
     Freq. indep. loss & $\sigma_{0,\text{s}}$ (s$^{-1}$) & $0.1$\\ 
     Freq. dep. loss & $\sigma_{1,\text{s}}$ (m$^2$/s) & $0.05$\\ \hline
@@ -614,8 +613,8 @@ The list of parameters used can be found in Table \ref{tab:parameters}.
     Damping & $R$ (s$^{-1}$)& $0.05$\\
     \hline
     \multicolumn{3}{|l|}{\bf Body}\\ \hline
-    Length & $L_x$ (m)& $1.35$\\ 
-    Width & $L_y$ (m)& $0.18$\\ 
+    Length & $L_x$ (m)& $1.35$*\\ 
+    Width & $L_y$ (m)& $0.18$*\\ 
     Material density & $\rho_\text{p}$ (kg$\cdot$m$^{-3}$)& $50$\\ 
     Thickness (m) & $H$ (m) & $0.01$\\ 
     Young's modulus & $E_\text{p}$ (Pa) & $2\cdot 10^{5}$\\ 
@@ -625,34 +624,48 @@ The list of parameters used can be found in Table \ref{tab:parameters}.
     \multicolumn{3}{|l|}{\bf String-bridge connection}\\\hline
     Stiffness Coefficient & $K_\text{sm}$ (N/m) & $5\cdot10^{6}$\\
     Non-lin. col. coeff. &$\alpha_\text{sm}$ (-) & 1.0\\
-    Bridge location & $x_\text{sm}$ (m)& $1.65$\\
+    Bridge location & $x_\text{sm}$ (m)& $1.65$*\\
     \hline
     \multicolumn{3}{|l|}{\bf Bridge-body collision}\\\hline
     Stiffness Coefficient & $K_\text{mp}$ (N/m) & $5\cdot10^{8}$\\
     Non-lin. col. coeff. &$\alpha_\text{mp}$ (-) & 1.0\\
-    Bridge location & ($x_\text{mp},y_\text{mp}$) (m,m)& $(1.08,0.135)$\\\hline
+    Bridge location & ($x_\text{mp},y_\text{mp}$) (m,m)& $(1.08,0.135)$*\\\hline
     \multicolumn{3}{|l|}{\bf Other}\\\hline
     Offset & $u_\text{off}$ (m) & $5\cdot 10^{-6}$\\
     Damp. finger coeff. &$\sigma_\text{f}$ (kg$\cdot$s$^{-2}$)&$0\leq \sigma_\text{f} \leq 1$\\
     \hline
 \end{tabular}
-\caption{Parameter values chosen for the simulation. \textbf{check all values!!}}
+\caption{List of parameter values used for the simulation. *These values have been taken from a real (recreated) tromba marina \cite{Baldwin2016:SMC2020}.}
 \end{center}
 \end{table}
-Regarding the output of the system, through empirical testing it was decided to retrieve the output from the state of the plate right at the point of collision $(x_\text{mp},y_\text{mp})$ combined with the sound of the string at a lower volume. It can be argued that the loudest sound comes from the collision between the bridge and the body making it logical to select this point as the output position. 
 
-\subsection{Graphical User Interface}
+\subsection{Graphical User Interface}\label{sec:GUI}
+A screenshot of the GUI is shown in Figure \ref{fig:GUI}. The GUI is divided in four sections, three showing the states of the string, bridge and body respectively and one control section. 
+
+ Firstly, the string section shows the state of the string $u_{l,\text{s}}^n$ as a cyan-coloured path and the bow as a yellow rectangle with bow position $x_\text{b}$ and its opacity depending on the bow force $F_\text{b}$. Furthermore, the bridge state $u_\text{m}^n$ is shown as a green circle at location (of the bridge along the string) $x_\text{sm}$. Finally, the position of the damping finger $x_\text{f}$ is displayed as a yellow circle, the size of which depends on damping coefficient $\sigma_\text{f}$. The position of the finger triggers lines showing the locations of the closest nodes along the string according to the following equation
+\begin{equation}
+    x_\text{node}^i = \frac{i\cdot x_\text{sm}}{n}\quad \text{for} \quad i = [1,\hdots,n-1],
+\end{equation}
+where $n = \text{round} (x_\text{sm}/x_\text{f})$ is an integer closest to the ratio between the string length until the bridge location and the damping finger position. These lines are drawn is to help the user place the damping finger at nodes along the string.
+
+Secondly, the bridge section shows the displacement of the bridge $u_\text{m}^n$ as a green circle, the state of the body at the collision location $u_{(x_\text{sm},y_\text{sm}),\text{p}}^n$, both moving vertically with their respective displacements and finally, a grey horizontal line denoting the offset $u_\text{off}$, i.e., the resting position of the bridge.
+
+Thirdly, the body section shows the state of the body as a grid of rectangles changing (grey-scale) colour with displacement (white for positive and black for negative).
+
+
+Finally, the control section contains three sliders that control the levels of the string (s), bridge (m) and body (p) respectively and a reset button to re-initialise the system. 
 \begin{figure}[h]
   \centering
   \includegraphics[width=1.0\columnwidth]{applicationDescription.png}
-  \caption{The application with text highlighting different components.}
-  \label{fig:application}
+  \caption{The GUI showing the excited system with text highlighting different components. A detailed description of this figure can be found in Section \ref{sec:GUI}.}
+  \label{fig:GUI}
 \end{figure}
 
 \subsection{Sensel Morph and Mapping}
-The Sensel is an expressive touch controller using \texttildelow20,000 pressure sensitive sensors laid out in an hexagonal grid\cite{sensel2020}. It retrieves x and y positions and pressure from which it calculates velocities and accelerations.
+The Sensel is an expressive touch controller using \texttildelow20,000 pressure sensitive sensors laid out in an hexagonal grid\cite{sensel2020}. It retrieves x and y positions and pressure at a rate of 150 Hz from which velocities and accelerations can be obtained.
 
-The first finger touching the Sensel is mapped to the bow: x-position is mapped to bow position $x_\text{b}$, y-velocity to bow velocity $v_\text{b}$ and pressure to bow force $F_\text{b}$. The second finger is mapped to the damping finger: x-position is mapped to finger location $x_\text{f}$ and pressure to damping coefficient $\sigma_\text{f}$.
+The first finger registered by the Sensel is mapped to the bow: x-position is mapped to bow position $x_\text{b}$, y-velocity to bow velocity $v_\text{b}$ (y-position is shown in the GUI but does not influence the model directly) and pressure to bow force $F_\text{b}$. The second finger is mapped to the damping finger: x-position is mapped to finger location $x_\text{f}$ and pressure to damping coefficient $\sigma_\text{f}$.
+
 \section{Discussion}
 
 As can be seen from Table \ref{tab:parameters}, the non-linear collision coefficients $\alpha_\text{sm}$ and $\alpha_\text{mp}$ are set to $1$. We found some odd behaviour when increasing this value, where the bridge would `get stuck' behind the plate, i.e., values for $\psi_\text{mp}$ would be negative for a prolonged period of time. The explicit technique used in this work allows for this to happen (and can be proven to still be stable in this case \cite{Ducceschi2019}), but it is unphysical to have a negative potential. Futher investigation will be necessary to figure out a way to prevent this behaviour.
@@ -671,6 +684,7 @@ NordicSMC, project number 86892. Ducceschi's work was supported by an Early Care
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %bibliography here
+{\small
 \bibliography{smc2020bib}
-
+}
 \end{document}
