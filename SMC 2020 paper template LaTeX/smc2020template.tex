@@ -648,10 +648,9 @@ A screenshot of the GUI is shown in Figure \ref{fig:GUI}. The GUI is divided in 
 \end{equation}
 where $n = \text{round} (x_\text{sm}/x_\text{f})$ is an integer closest to the ratio between the string length until the bridge location and the damping finger position. These lines are drawn is to help the user place the damping finger at nodes along the string.
 
-Secondly, the bridge section shows the displacement of the bridge $u_\text{m}^n$ as a green circle, the state of the body at the collision location $u_{(x_\text{sm},y_\text{sm}),\text{p}}^n$, both moving vertically with their respective displacements and finally, a grey horizontal line denoting the offset $u_\text{off}$, i.e., the resting position of the bridge.
+Secondly, the bridge section shows the displacement of the bridge $u_\text{m}^n$ as a green circle, the state of the body at the collision location $u_{(x_\text{sm},y_\text{sm}),\text{p}}^n$, both moving vertically according to their respective displacements and finally, a grey horizontal line denoting the offset $u_\text{off}$, i.e., the resting position of the bridge.
 
-Thirdly, the body section shows the state of the body as a grid of rectangles changing (grey-scale) colour with displacement (white for positive and black for negative).
-
+Thirdly, the body section shows the state of the body as a grid of grey-scale rectangles changing colour according to their displacement (white for positive and black for negative).
 
 Finally, the control section contains three sliders that control the levels of the string (s), bridge (m) and body (p) respectively and a reset button to re-initialise the system. 
 \begin{figure}[h]
@@ -662,7 +661,7 @@ Finally, the control section contains three sliders that control the levels of t
 \end{figure}
 
 \subsection{Sensel Morph and Mapping}
-The Sensel is an expressive touch controller using \texttildelow20,000 pressure sensitive sensors laid out in an hexagonal grid\cite{sensel2020}. It retrieves x and y positions and pressure at a rate of 150 Hz from which velocities and accelerations can be obtained.
+The Sensel is an expressive touch controller using \texttildelow20,000 pressure sensitive sensors laid out in an hexagonal grid\cite{sensel2020}. It retrieves x and y-positions and pressure at a rate of 150 Hz from which velocities and accelerations can be obtained.
 
 The first finger registered by the Sensel is mapped to the bow: x-position is mapped to bow position $x_\text{b}$, y-velocity to bow velocity $v_\text{b}$ (y-position is shown in the GUI but does not influence the model directly) and pressure to bow force $F_\text{b}$. The second finger is mapped to the damping finger: x-position is mapped to finger location $x_\text{f}$ and pressure to damping coefficient $\sigma_\text{f}$.
 
@@ -674,6 +673,8 @@ As can be seen from Table \ref{tab:parameters}, the non-linear collision coeffic
 Comparison between NR and Non-iterative methods (both speed and quality)
 
 Parameter design
+
+
 
 For a more physical implementation of the damping finger, it might be a good idea to model it as another mass colliding with the string rather than imposing a `hacky' way of damping onto the string state. 
 \begin{acknowledgments}
