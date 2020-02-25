@@ -655,7 +655,7 @@ Thirdly, the body section shows the state of the body as a grid of grey-scale re
 Finally, the control section contains three sliders that control the levels of the string (s), bridge (m) and body (p) respectively and a reset button to re-initialise the system. 
 \begin{figure}[h]
   \centering
-  \includegraphics[width=1.0\columnwidth]{applicationDescription.png}
+  \includegraphics[width=1.0\columnwidth]{applicationDescription.pdf}
   \caption{The GUI showing the excited system with text highlighting different components. A detailed description of this figure can be found in Section \ref{sec:GUI}.}
   \label{fig:GUI}
 \end{figure}
@@ -665,9 +665,16 @@ The Sensel is an expressive touch controller using \texttildelow20,000 pressure 
 
 The first finger registered by the Sensel is mapped to the bow: x-position is mapped to bow position $x_\text{b}$, y-velocity to bow velocity $v_\text{b}$ (y-position is shown in the GUI but does not influence the model directly) and pressure to bow force $F_\text{b}$. The second finger is mapped to the damping finger: x-position is mapped to finger location $x_\text{f}$ and pressure to damping coefficient $\sigma_\text{f}$.
 
-\section{Discussion}
-
+\section{Results and Discussion}
+Figure \ref{fig:waveforms} shows the isolated outputs of the string (where $l = \text{floor}((L-x_\text{sm})h)$), the  bowed at $x_\text{b} = 0.3L$, with $v_\text{b} = 0.2$
 As can be seen from Table \ref{tab:parameters}, the non-linear collision coefficients $\alpha_\text{sm}$ and $\alpha_\text{mp}$ are set to $1$. We found some odd behaviour when increasing this value, where the bridge would `get stuck' behind the plate, i.e., values for $\psi_\text{mp}$ would be negative for a prolonged period of time. The explicit technique used in this work allows for this to happen (and can be proven to still be stable in this case \cite{Ducceschi2019}), but it is unphysical to have a negative potential. Futher investigation will be necessary to figure out a way to prevent this behaviour.
+
+\begin{figure}
+  \centering
+  \includegraphics[width=0.9\columnwidth]{trombaWaveforms.eps}
+  \caption{The isolated outputs of the string, bridge and plate at 0.5 gain.}
+  \label{fig:waveforms}
+\end{figure}
 
 \section{Conclusions}
 Comparison between NR and Non-iterative methods (both speed and quality)
