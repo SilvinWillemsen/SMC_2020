@@ -643,7 +643,7 @@ Regarding the output of the system, through empirical testing it was decided to 
 A screenshot of the GUI is shown in Figure \ref{fig:GUI}. The GUI is divided in four sections, three showing the states of the string, bridge and body respectively and one control section. 
 
  Firstly, the string section shows the state of the string $u_{l,\text{s}}^n$ as a cyan-coloured path and the bow as a yellow rectangle with bow position $x_\text{b}$ and its opacity depending on the bow force $F_\text{b}$. Furthermore, the bridge state $u_\text{m}^n$ is shown as a green circle at location (of the bridge along the string) $x_\text{sm}$. Finally, the position of the damping finger $x_\text{f}$ is displayed as a yellow circle, the size of which depends on damping coefficient $\sigma_\text{f}$. The position of the finger triggers lines showing the locations of the closest nodes along the string according to the following equation
-\begin{equation}
+\begin{equation}\label{eq:node}
     x_\text{node}^i = \frac{i\cdot x_\text{sm}}{n}\quad \text{for} \quad i = [1,\hdots,n-1],
 \end{equation}
 where $n = \text{round} (x_\text{sm}/x_\text{f})$ is an integer closest to the ratio between the string length until the bridge location and the damping finger position. These lines are drawn is to help the user place the damping finger at nodes along the string.
@@ -666,15 +666,15 @@ The Sensel is an expressive touch controller using \texttildelow20,000 pressure 
 The first finger registered by the Sensel is mapped to the bow: x-position is mapped to bow position $x_\text{b}$, y-velocity to bow velocity $v_\text{b}$ (y-position is shown in the GUI but does not influence the model directly) and pressure to bow force $F_\text{b}$. The second finger is mapped to the damping finger: x-position is mapped to finger location $x_\text{f}$ and pressure to damping coefficient $\sigma_\text{f}$.
 
 \section{Results and Discussion}
-Figure \ref{fig:waveforms} shows the isolated outputs of the string (where $x = L-x_\text{sm}$), the bridge and the body (at $(x_\text{mp},y_\text{mp})$). The string is bowed at $x_\text{b} = 0.3L$, with speed $v_\text{b} = 0.2$ and force $F_\text{b} = 0.1$. Compared with trombone measurements from \cite[Figure 6]{Boutin2015:SMC2020} 
+Figure \ref{fig:waveforms} shows the isolated outputs of the string (where $x = L-x_\text{sm}$), the bridge and the body (at $(x_\text{mp},y_\text{mp})$). The string is bowed at $x_\text{b} = 0.3L$, with speed $v_\text{b} = 0.2$ and force $F_\text{b} = 0.1$ and damping finger position $x_\text{f} = 0.5x_\text{sm}$ to induce the lowest harmonic. Compared with trombone measurements from \cite[Figure 6]{Boutin2015:SMC2020} 
 
 The string shows a classic Helmholtz motion which is expected of a bowed string. 
-As can be seen from Table \ref{tab:parameters}, the non-linear collision coefficients $\alpha_\text{sm}$ and $\alpha_\text{mp}$ are set to $1$. We found some odd behaviour when increasing this value, where the bridge would `get stuck' behind the plate, i.e., values for $\psi_\text{mp}$ would be negative for a prolonged period of time. The explicit technique used in this work allows for this to happen (and can be proven to still be stable in this case \cite{Ducceschi2019}), but it is unphysical to have a negative potential. This is also the reason why the reset button presented in Section \ref{sec:GUI} has been implemented. Further investigation will be necessary to figure out a way to prevent this behaviour.
+As can be seen from Table \ref{tab:parameters}, the non-linear collision coefficients $\alpha_\text{sm}$ and $\alpha_\text{mp}$ are set to $1$. We found some odd behaviour when increasing this value, where the bridge would `get stuck' behind the plate, i.e., values for $\psi_\text{mp}$ would be negative for a prolonged period of time. The explicit technique used in this work allows for this to happen (and can be proven to still be stable in this case \cite{Ducceschi2019}), but it is ``unphysical" to have a negative potential as this implies a ``pulling" collision. This is also the reason why the reset button presented in Section \ref{sec:GUI} has been implemented. Further investigation will be necessary to figure out a way to prevent this behaviour.
 
 \begin{figure}
   \centering
-  \includegraphics[width=\columnwidth]{trombaWaveforms.eps}
-  \caption{The isolated outputs of the string, bridge and body at 0.5 gain.}
+  \includegraphics[width=\columnwidth]{trombaWaveforms2.eps}
+  \caption{The isolated outputs of the bridge and body (at collision location $(x_\text{sm},y_\text{sm})$) with bow parameters $x_\text{b} = 0.3L$, $v_\text{b} = 0.2$, $F_\text{b} = 0.1$ and damping finger position $x_\text{f} = 0.5x_\text{sm}$ to induce the lowest harmonic.}
   \label{fig:waveforms}
 \end{figure}
 
