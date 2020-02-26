@@ -1,9 +1,9 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2016.11.3)  8 FEB 2020 10:56
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2016.11.3)  25 FEB 2020 13:29
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
  %&-line parsing enabled.
-**smc2020template.tex
+**"/Users/SilvinW/repositories/SMC_2020/SMC 2020 paper template LaTeX/smc2020template.tex"
 (/Users/SilvinW/repositories/SMC_2020/SMC 2020 paper template LaTeX/smc2020template.tex
 LaTeX2e <2016/03/31>
 Babel <3.9r> and hyphenation patterns for 83 language(s) loaded.
@@ -265,9 +265,143 @@ LaTeX Info: Redefining \nocite on input line 332.
 Package: cite 2015/02/27  v 5.5
 ) (/usr/local/texlive/2016/texmf-dist/tex/latex/multirow/multirow.sty
 \bigstrutjot=\dimen154
+) (/usr/local/texlive/2016/texmf-dist/tex/latex/algorithm2e/algorithm2e.sty
+Package: algorithm2e 2013/01/06 v5.00 algorithms environments
+\c@AlgoLine=\count108
+ (/usr/local/texlive/2016/texmf-dist/tex/latex/base/ifthen.sty
+Package: ifthen 2014/09/29 v1.1c Standard LaTeX ifthen package (DPC)
+)
+\algocf@hangindent=\skip45
+ (/usr/local/texlive/2016/texmf-dist/tex/latex/tools/xspace.sty
+Package: xspace 2014/10/28 v1.13 Space after command names (DPC,MH)
+) (/usr/local/texlive/2016/texmf-dist/tex/latex/relsize/relsize.sty
+Package: relsize 2013/03/29 ver 4.1
+)
+********************************************************
+Package `algorithm2e' Release 5.1 -- october 19 2015 --
+- algorithm2e-announce@lirmm.fr mailing list for announcement about releases
+- algorithm2e-discussion@lirmm.fr mailing list for discussion about package
+subscribe by emailing sympa@lirmm.fr with 'subscribe <list> <firstname name>'
+- Author: Christophe Fiorio (christophe.fiorio@umontpellier.fr)
+********************************************************
+\skiptotal=\skip46
+\skiplinenumber=\skip47
+\skiprule=\skip48
+\skiphlne=\skip49
+\skiptext=\skip50
+\skiplength=\skip51
+\algomargin=\skip52
+\skipalgocfslide=\skip53
+\algowidth=\dimen155
+\inoutsize=\dimen156
+\inoutindent=\dimen157
+\interspacetitleruled=\dimen158
+\interspacealgoruled=\dimen159
+\interspacetitleboxruled=\dimen160
+\algocf@ruledwidth=\skip54
+\algocf@inoutbox=\box37
+\algocf@inputbox=\box38
+\AlCapSkip=\skip55
+\AlCapHSkip=\skip56
+\algoskipindent=\skip57
+\algocf@nlbox=\box39
+\algocf@hangingbox=\box40
+\algocf@untilbox=\box41
+\algocf@skipuntil=\skip58
+\algocf@capbox=\box42
+\algoheightruledefault=\skip59
+\algoheightrule=\skip60
+\algotitleheightruledefault=\skip61
+\algotitleheightrule=\skip62
+\c@algocfline=\count109
+\c@algocfproc=\count110
+\c@algocf=\count111
+\algocf@algoframe=\box43
+\algocf@algobox=\box44
+) (/usr/local/texlive/2016/texmf-dist/tex/latex/setspace/setspace.sty
+Package: setspace 2011/12/19 v6.7a set line spacing
+) (/usr/local/texlive/2016/texmf-dist/tex/latex/base/textcomp.sty
+Package: textcomp 2005/09/27 v1.99g Standard LaTeX package
+Package textcomp Info: Sub-encoding information:
+(textcomp)               5 = only ISO-Adobe without \textcurrency
+(textcomp)               4 = 5 + \texteuro
+(textcomp)               3 = 4 + \textohm
+(textcomp)               2 = 3 + \textestimated + \textcurrency
+(textcomp)               1 = TS1 - \textcircled - \t
+(textcomp)               0 = TS1 (full)
+(textcomp)             Font families with sub-encoding setting implement
+(textcomp)             only a restricted character set as indicated.
+(textcomp)             Family '?' is the default used for unknown fonts.
+(textcomp)             See the documentation for details.
+Package textcomp Info: Setting ? sub-encoding to TS1/1 on input line 79.
+ (/usr/local/texlive/2016/texmf-dist/tex/latex/base/ts1enc.def
+File: ts1enc.def 2001/06/05 v3.0e (jk/car/fm) Standard LaTeX file
+)
+LaTeX Info: Redefining \oldstylenums on input line 334.
+Package textcomp Info: Setting cmr sub-encoding to TS1/0 on input line 349.
+Package textcomp Info: Setting cmss sub-encoding to TS1/0 on input line 350.
+Package textcomp Info: Setting cmtt sub-encoding to TS1/0 on input line 351.
+Package textcomp Info: Setting cmvtt sub-encoding to TS1/0 on input line 352.
+Package textcomp Info: Setting cmbr sub-encoding to TS1/0 on input line 353.
+Package textcomp Info: Setting cmtl sub-encoding to TS1/0 on input line 354.
+Package textcomp Info: Setting ccr sub-encoding to TS1/0 on input line 355.
+Package textcomp Info: Setting ptm sub-encoding to TS1/4 on input line 356.
+Package textcomp Info: Setting pcr sub-encoding to TS1/4 on input line 357.
+Package textcomp Info: Setting phv sub-encoding to TS1/4 on input line 358.
+Package textcomp Info: Setting ppl sub-encoding to TS1/3 on input line 359.
+Package textcomp Info: Setting pag sub-encoding to TS1/4 on input line 360.
+Package textcomp Info: Setting pbk sub-encoding to TS1/4 on input line 361.
+Package textcomp Info: Setting pnc sub-encoding to TS1/4 on input line 362.
+Package textcomp Info: Setting pzc sub-encoding to TS1/4 on input line 363.
+Package textcomp Info: Setting bch sub-encoding to TS1/4 on input line 364.
+Package textcomp Info: Setting put sub-encoding to TS1/5 on input line 365.
+Package textcomp Info: Setting uag sub-encoding to TS1/5 on input line 366.
+Package textcomp Info: Setting ugq sub-encoding to TS1/5 on input line 367.
+Package textcomp Info: Setting ul8 sub-encoding to TS1/4 on input line 368.
+Package textcomp Info: Setting ul9 sub-encoding to TS1/4 on input line 369.
+Package textcomp Info: Setting augie sub-encoding to TS1/5 on input line 370.
+Package textcomp Info: Setting dayrom sub-encoding to TS1/3 on input line 371.
+Package textcomp Info: Setting dayroms sub-encoding to TS1/3 on input line 372.
+Package textcomp Info: Setting pxr sub-encoding to TS1/0 on input line 373.
+Package textcomp Info: Setting pxss sub-encoding to TS1/0 on input line 374.
+Package textcomp Info: Setting pxtt sub-encoding to TS1/0 on input line 375.
+Package textcomp Info: Setting txr sub-encoding to TS1/0 on input line 376.
+Package textcomp Info: Setting txss sub-encoding to TS1/0 on input line 377.
+Package textcomp Info: Setting txtt sub-encoding to TS1/0 on input line 378.
+Package textcomp Info: Setting lmr sub-encoding to TS1/0 on input line 379.
+Package textcomp Info: Setting lmdh sub-encoding to TS1/0 on input line 380.
+Package textcomp Info: Setting lmss sub-encoding to TS1/0 on input line 381.
+Package textcomp Info: Setting lmssq sub-encoding to TS1/0 on input line 382.
+Package textcomp Info: Setting lmvtt sub-encoding to TS1/0 on input line 383.
+Package textcomp Info: Setting lmtt sub-encoding to TS1/0 on input line 384.
+Package textcomp Info: Setting qhv sub-encoding to TS1/0 on input line 385.
+Package textcomp Info: Setting qag sub-encoding to TS1/0 on input line 386.
+Package textcomp Info: Setting qbk sub-encoding to TS1/0 on input line 387.
+Package textcomp Info: Setting qcr sub-encoding to TS1/0 on input line 388.
+Package textcomp Info: Setting qcs sub-encoding to TS1/0 on input line 389.
+Package textcomp Info: Setting qpl sub-encoding to TS1/0 on input line 390.
+Package textcomp Info: Setting qtm sub-encoding to TS1/0 on input line 391.
+Package textcomp Info: Setting qzc sub-encoding to TS1/0 on input line 392.
+Package textcomp Info: Setting qhvc sub-encoding to TS1/0 on input line 393.
+Package textcomp Info: Setting futs sub-encoding to TS1/4 on input line 394.
+Package textcomp Info: Setting futx sub-encoding to TS1/4 on input line 395.
+Package textcomp Info: Setting futj sub-encoding to TS1/4 on input line 396.
+Package textcomp Info: Setting hlh sub-encoding to TS1/3 on input line 397.
+Package textcomp Info: Setting hls sub-encoding to TS1/3 on input line 398.
+Package textcomp Info: Setting hlst sub-encoding to TS1/3 on input line 399.
+Package textcomp Info: Setting hlct sub-encoding to TS1/5 on input line 400.
+Package textcomp Info: Setting hlx sub-encoding to TS1/5 on input line 401.
+Package textcomp Info: Setting hlce sub-encoding to TS1/5 on input line 402.
+Package textcomp Info: Setting hlcn sub-encoding to TS1/5 on input line 403.
+Package textcomp Info: Setting hlcw sub-encoding to TS1/5 on input line 404.
+Package textcomp Info: Setting hlcf sub-encoding to TS1/5 on input line 405.
+Package textcomp Info: Setting pplx sub-encoding to TS1/3 on input line 406.
+Package textcomp Info: Setting pplj sub-encoding to TS1/3 on input line 407.
+Package textcomp Info: Setting ptmx sub-encoding to TS1/4 on input line 408.
+Package textcomp Info: Setting ptmj sub-encoding to TS1/4 on input line 409.
 ) (/usr/local/texlive/2016/texmf-dist/tex/latex/amsmath/amsmath.sty
 Package: amsmath 2016/03/10 v2.15b AMS math features
-\@mathmargin=\skip45
+\@mathmargin=\skip63
 
 For additional information on amsmath, use the `?' option.
 (/usr/local/texlive/2016/texmf-dist/tex/latex/amsmath/amstext.sty
@@ -275,47 +409,47 @@ Package: amstext 2000/06/29 v2.01 AMS text
  (/usr/local/texlive/2016/texmf-dist/tex/latex/amsmath/amsgen.sty
 File: amsgen.sty 1999/11/30 v2.0 generic functions
 \@emptytoks=\toks28
-\ex@=\dimen155
+\ex@=\dimen161
 )) (/usr/local/texlive/2016/texmf-dist/tex/latex/amsmath/amsbsy.sty
 Package: amsbsy 1999/11/29 v1.2d Bold Symbols
-\pmbraise@=\dimen156
+\pmbraise@=\dimen162
 ) (/usr/local/texlive/2016/texmf-dist/tex/latex/amsmath/amsopn.sty
 Package: amsopn 2016/03/08 v2.02 operator names
 )
-\inf@bad=\count108
+\inf@bad=\count112
 LaTeX Info: Redefining \frac on input line 199.
-\uproot@=\count109
-\leftroot@=\count110
+\uproot@=\count113
+\leftroot@=\count114
 LaTeX Info: Redefining \overline on input line 297.
-\classnum@=\count111
-\DOTSCASE@=\count112
+\classnum@=\count115
+\DOTSCASE@=\count116
 LaTeX Info: Redefining \ldots on input line 394.
 LaTeX Info: Redefining \dots on input line 397.
 LaTeX Info: Redefining \cdots on input line 518.
-\Mathstrutbox@=\box37
-\strutbox@=\box38
-\big@size=\dimen157
+\Mathstrutbox@=\box45
+\strutbox@=\box46
+\big@size=\dimen163
 LaTeX Font Info:    Redeclaring font encoding OML on input line 634.
 LaTeX Font Info:    Redeclaring font encoding OMS on input line 635.
-\macc@depth=\count113
-\c@MaxMatrixCols=\count114
+\macc@depth=\count117
+\c@MaxMatrixCols=\count118
 \dotsspace@=\muskip10
-\c@parentequation=\count115
-\dspbrk@lvl=\count116
+\c@parentequation=\count119
+\dspbrk@lvl=\count120
 \tag@help=\toks29
-\row@=\count117
-\column@=\count118
-\maxfields@=\count119
+\row@=\count121
+\column@=\count122
+\maxfields@=\count123
 \andhelp@=\toks30
-\eqnshift@=\dimen158
-\alignsep@=\dimen159
-\tagshift@=\dimen160
-\tagwidth@=\dimen161
-\totwidth@=\dimen162
-\lineht@=\dimen163
+\eqnshift@=\dimen164
+\alignsep@=\dimen165
+\tagshift@=\dimen166
+\tagwidth@=\dimen167
+\totwidth@=\dimen168
+\lineht@=\dimen169
 \@envbody=\toks31
-\multlinegap=\skip46
-\multlinetaggap=\skip47
+\multlinegap=\skip64
+\multlinetaggap=\skip65
 \mathdisplay@stack=\toks32
 LaTeX Info: Redefining \[ on input line 2739.
 LaTeX Info: Redefining \] on input line 2740.
@@ -377,13 +511,13 @@ Package: auxhook 2016/05/16 v1.4 Hooks for auxiliary files (HO)
 ) (/usr/local/texlive/2016/texmf-dist/tex/latex/oberdiek/kvoptions.sty
 Package: kvoptions 2016/05/16 v3.12 Key value format for package options (HO)
 )
-\@linkdim=\dimen164
-\Hy@linkcounter=\count120
-\Hy@pagecounter=\count121
+\@linkdim=\dimen170
+\Hy@linkcounter=\count124
+\Hy@pagecounter=\count125
  (/usr/local/texlive/2016/texmf-dist/tex/latex/hyperref/pd1enc.def
 File: pd1enc.def 2016/05/05 v6.83n Hyperref: PDFDocEncoding definition (HO)
 )
-\Hy@SavedSpaceFactor=\count122
+\Hy@SavedSpaceFactor=\count126
  (/usr/local/texlive/2016/texmf-dist/tex/latex/latexconfig/hyperref.cfg
 File: hyperref.cfg 2002/06/06 v1.2 hyperref configuration of TeXLive
 )
@@ -395,16 +529,16 @@ Package hyperref Info: Plain pages OFF on input line 4461.
 Package hyperref Info: Backreferencing OFF on input line 4466.
 Package hyperref Info: Implicit mode ON; LaTeX internals redefined.
 Package hyperref Info: Bookmarks ON on input line 4691.
-\c@Hy@tempcnt=\count123
+\c@Hy@tempcnt=\count127
  (/usr/local/texlive/2016/texmf-dist/tex/latex/url/url.sty
 \Urlmuskip=\muskip11
 Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
 )
 LaTeX Info: Redefining \url on input line 5044.
-\XeTeXLinkMargin=\dimen165
-\Fld@menulength=\count124
-\Field@Width=\dimen166
-\Fld@charsize=\dimen167
+\XeTeXLinkMargin=\dimen171
+\Fld@menulength=\count128
+\Field@Width=\dimen172
+\Fld@charsize=\dimen173
 Package hyperref Info: Hyper figures OFF on input line 6298.
 Package hyperref Info: Link nesting OFF on input line 6303.
 Package hyperref Info: Hyper index ON on input line 6306.
@@ -414,71 +548,64 @@ Package hyperref Info: Link coloring with OCG OFF on input line 6323.
 Package hyperref Info: PDF/A mode OFF on input line 6328.
 LaTeX Info: Redefining \ref on input line 6368.
 LaTeX Info: Redefining \pageref on input line 6372.
-\Hy@abspage=\count125
-\c@Item=\count126
-\c@Hfootnote=\count127
+\Hy@abspage=\count129
+\c@Item=\count130
+\c@Hfootnote=\count131
 )
 
 Package hyperref Message: Driver: hpdftex.
 
 (/usr/local/texlive/2016/texmf-dist/tex/latex/hyperref/hpdftex.def
 File: hpdftex.def 2016/05/05 v6.83n Hyperref driver for pdfTeX
-\Fld@listcount=\count128
-\c@bookmark@seq@number=\count129
+\Fld@listcount=\count132
+\c@bookmark@seq@number=\count133
  (/usr/local/texlive/2016/texmf-dist/tex/latex/oberdiek/rerunfilecheck.sty
 Package: rerunfilecheck 2016/05/16 v1.8 Rerun checks for auxiliary files (HO)
 Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 282.
 )
-\Hy@SectionHShift=\skip48
+\Hy@SectionHShift=\skip66
 ) (/usr/local/texlive/2016/texmf-dist/tex/latex/oberdiek/hypcap.sty
 Package: hypcap 2016/05/16 v1.12 Adjusting the anchors of captions (HO)
 )
-Package hyperref Info: Option `colorlinks' set `true' on input line 97.
- (/Users/SilvinW/repositories/SMC_2020/SMC 2020 paper template LaTeX/smc2020template.aux
-
-LaTeX Warning: Label `fig:bridge' multiply defined.
-
-
-LaTeX Warning: Label `eq:stringPotential' multiply defined.
-
-
-LaTeX Warning: Label `eq:massPotential' multiply defined.
-
-
-LaTeX Warning: Label `eq:platePotential' multiply defined.
-
-)
+Package hyperref Info: Option `colorlinks' set `true' on input line 99.
+ (/Users/SilvinW/repositories/SMC_2020/SMC 2020 paper template LaTeX/smc2020template.aux)
 \openout1 = `smc2020template.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 149.
-LaTeX Font Info:    ... okay on input line 149.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 149.
-LaTeX Font Info:    ... okay on input line 149.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 149.
-LaTeX Font Info:    ... okay on input line 149.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 149.
-LaTeX Font Info:    ... okay on input line 149.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 149.
-LaTeX Font Info:    ... okay on input line 149.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 149.
-LaTeX Font Info:    ... okay on input line 149.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 149.
-LaTeX Font Info:    ... okay on input line 149.
-LaTeX Font Info:    Try loading font information for OT1+ptm on input line 149.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 151.
+LaTeX Font Info:    ... okay on input line 151.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 151.
+LaTeX Font Info:    ... okay on input line 151.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 151.
+LaTeX Font Info:    ... okay on input line 151.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 151.
+LaTeX Font Info:    ... okay on input line 151.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 151.
+LaTeX Font Info:    ... okay on input line 151.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 151.
+LaTeX Font Info:    ... okay on input line 151.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 151.
+LaTeX Font Info:    Try loading font information for TS1+cmr on input line 151.
+ (/usr/local/texlive/2016/texmf-dist/tex/latex/base/ts1cmr.fd
+File: ts1cmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
+)
+LaTeX Font Info:    ... okay on input line 151.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 151.
+LaTeX Font Info:    ... okay on input line 151.
+LaTeX Font Info:    Try loading font information for OT1+ptm on input line 151.
  (/usr/local/texlive/2016/texmf-dist/tex/latex/psnfss/ot1ptm.fd
 File: ot1ptm.fd 2001/06/04 font definitions for OT1/ptm.
 ) ABD: EveryShipout initializing macros (/usr/local/texlive/2016/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count130
-\scratchdimen=\dimen168
-\scratchbox=\box39
-\nofMPsegments=\count131
-\nofMParguments=\count132
+\scratchcounter=\count134
+\scratchdimen=\dimen174
+\scratchbox=\box47
+\nofMPsegments=\count135
+\nofMParguments=\count136
 \everyMPshowfont=\toks33
-\MPscratchCnt=\count133
-\MPscratchDim=\dimen169
-\MPnumerator=\count134
-\makeMPintoPDFobject=\count135
+\MPscratchCnt=\count137
+\MPscratchDim=\dimen175
+\MPnumerator=\count138
+\makeMPintoPDFobject=\count139
 \everyMPtoPDFconversion=\toks34
 ) (/usr/local/texlive/2016/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
 Package: epstopdf-base 2016/05/15 v2.6 Base part for package epstopdf
@@ -491,89 +618,129 @@ Package grfext Info: Graphics extension search list:
  (/usr/local/texlive/2016/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
 ))
-\AtBeginShipoutBox=\box40
-Package hyperref Info: Link coloring ON on input line 149.
+\AtBeginShipoutBox=\box48
+Package hyperref Info: Link coloring ON on input line 151.
  (/usr/local/texlive/2016/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2012/10/27 v2.43 Cross-referencing by name of section
  (/usr/local/texlive/2016/texmf-dist/tex/generic/oberdiek/gettitlestring.sty
 Package: gettitlestring 2016/05/16 v1.5 Cleanup title references (HO)
 )
-\c@section@level=\count136
+\c@section@level=\count140
 )
-LaTeX Info: Redefining \ref on input line 149.
-LaTeX Info: Redefining \pageref on input line 149.
-LaTeX Info: Redefining \nameref on input line 149.
- (/Users/SilvinW/repositories/SMC_2020/SMC 2020 paper template LaTeX/smc2020template.out) (/Users/SilvinW/repositories/SMC_2020/SMC 2020 paper template LaTeX/smc2020template.out)
+LaTeX Info: Redefining \ref on input line 151.
+LaTeX Info: Redefining \pageref on input line 151.
+LaTeX Info: Redefining \nameref on input line 151.
 \@outlinefile=\write4
 \openout4 = `smc2020template.out'.
 
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <14.4> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 153.
-LaTeX Font Info:    Try loading font information for U+msa on input line 153.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 155.
+LaTeX Font Info:    Try loading font information for U+msa on input line 155.
  (/usr/local/texlive/2016/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 153.
+LaTeX Font Info:    Try loading font information for U+msb on input line 155.
  (/usr/local/texlive/2016/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 153.
-LaTeX Font Info:    Try loading font information for OT1+pcr on input line 153.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 155.
+LaTeX Font Info:    Try loading font information for OT1+pcr on input line 155.
  (/usr/local/texlive/2016/texmf-dist/tex/latex/psnfss/ot1pcr.fd
 File: ot1pcr.fd 2001/06/04 font definitions for OT1/pcr.
 )
-LaTeX Font Info:    Try loading font information for OMS+pcr on input line 153.
+LaTeX Font Info:    Try loading font information for OMS+pcr on input line 155.
  (/usr/local/texlive/2016/texmf-dist/tex/latex/psnfss/omspcr.fd
 File: omspcr.fd 
 )
 LaTeX Font Info:    Font shape `OMS/pcr/m/n' in size <10> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 153.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 155.
 
-Overfull \hbox (3.65239pt too wide) in paragraph at lines 153--153
+Overfull \hbox (3.65239pt too wide) in paragraph at lines 155--155
  [][] 
  []
 
-LaTeX Font Info:    Try loading font information for OMS+ptm on input line 153.
-(/usr/local/texlive/2016/texmf-dist/tex/latex/psnfss/omsptm.fd
-File: omsptm.fd 
+LaTeX Font Info:    Try loading font information for TS1+ptm on input line 155.
+(/usr/local/texlive/2016/texmf-dist/tex/latex/psnfss/ts1ptm.fd
+File: ts1ptm.fd 2001/06/04 font definitions for TS1/ptm.
 )
-LaTeX Font Info:    Font shape `OMS/ptm/m/it' in size <7> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 153.
-LaTeX Font Info:    Font shape `OMS/ptm/m/n' in size <7> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 153.
 
-Underfull \hbox (badness 10000) in paragraph at lines 153--153
-[]\OT1/ptm/m/it/7 Copyright: []|  2020 Sil-vin Willemsen|  et al. This is
+LaTeX Warning: Reference `fig:tromba' on page 1 undefined on input line 164.
+
+Missing character: There is no â in font ptmr7t!
+Missing character: There is no € in font ptmr7t!
+Missing character: There is no “ in font ptmr7t!
+
+LaTeX Warning: Reference `fig:bridge' on page 1 undefined on input line 164.
+
+
+LaTeX Warning: Citation `munrow1976instruments' on page 1 undefined on input line 168.
+
+
+Overfull \hbox (0.81541pt too wide) in paragraph at lines 163--169
+\OT1/ptm/m/n/10 chord bowed in-stru-ment with a long quasi-trapezoidal body
  []
 
-
-Underfull \hbox (badness 10000) in paragraph at lines 153--153
-\OT1/ptm/m/it/7 an open-access ar-ti-cle dis-tributed un-der the terms of the
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 153--153
-[][][]$[]$[][][]\OT1/ptm/m/it/7 , which per-mits un-re-
- []
-
-<IMG_7982.JPG, id=49, 5203.44pt x 3468.96pt>
+<IMG_7980.pdf, id=9, 597.23125pt x 845.1575pt>
+File: IMG_7980.pdf Graphic file (type pdf)
+ <use IMG_7980.pdf>
+Package pdftex.def Info: IMG_7980.pdf used on input line 175.
+(pdftex.def)             Requested size: 209.9799pt x 297.15074pt.
+ <IMG_7982.JPG, id=10, 5203.44pt x 3468.96pt>
 File: IMG_7982.JPG Graphic file (type jpg)
  <use IMG_7982.JPG>
-Package pdftex.def Info: IMG_7982.JPG used on input line 167.
-(pdftex.def)             Requested size: 233.31259pt x 155.5142pt.
-
-Overfull \hbox (2.62498pt too wide) in paragraph at lines 172--173
-[]\OT1/ptm/m/n/10 Simulating mu-si-cal in-stru-ments us-ing phys-i-cal mod-els has
- []
+Package pdftex.def Info: IMG_7982.JPG used on input line 182.
+(pdftex.def)             Requested size: 209.9799pt x 139.9522pt.
 
 
-Overfull \hbox (1.58469pt too wide) in paragraph at lines 177--178
+LaTeX Warning: Citation `cadoz79' on page 1 undefined on input line 193.
+
+
+LaTeX Warning: Citation `cadoz83' on page 1 undefined on input line 193.
+
+
+LaTeX Warning: Citation `cadoz1993cordis' on page 1 undefined on input line 193.
+
+
+LaTeX Warning: Citation `smith1992physical' on page 1 undefined on input line 193.
+
+
+LaTeX Warning: Citation `morrison1993mosaic' on page 1 undefined on input line 193.
+
+
+LaTeX Warning: Citation `Ruiz1969' on page 1 undefined on input line 196.
+
+
+LaTeX Warning: Citation `Hiller1971' on page 1 undefined on input line 196.
+
+
+LaTeX Warning: Citation `Hiller2' on page 1 undefined on input line 196.
+
+
+LaTeX Warning: Citation `Chaigne92' on page 1 undefined on input line 196.
+
+
+LaTeX Warning: Citation `Chaigne' on page 1 undefined on input line 196.
+
+
+LaTeX Warning: Citation `bilbao2009numerical' on page 1 undefined on input line 196.
+
+
+LaTeX Warning: Citation `Bilbao2018:Tutorial' on page 1 undefined on input line 196.
+
+
+Overfull \hbox (1.58469pt too wide) in paragraph at lines 196--197
 []\OT1/ptm/m/n/10 Finite-difference time-domain (FDTD) meth-ods were first
  []
 
 
-Overfull \hbox (2.96452pt too wide) in paragraph at lines 183--184
+LaTeX Warning: Citation `Bilbao15' on page 1 undefined on input line 198.
+
+
+LaTeX Warning: Citation `Ducceschi2019' on page 1 undefined on input line 198.
+
+
+Overfull \hbox (2.96452pt too wide) in paragraph at lines 198--199
 \OT1/ptm/m/n/10 cal in-stru-ments nor-mally re-quires the use of it-er-a-tive solvers
  []
 
@@ -581,87 +748,347 @@ Overfull \hbox (2.96452pt too wide) in paragraph at lines 183--184
 
 
 
- </Users/SilvinW/repositories/SMC_2020/SMC 2020 paper template LaTeX/IMG_7982.JPG>]
-Missing character: There is no ; in font nullfont!
-Missing character: There is no ; in font nullfont!
-Missing character: There is no ; in font nullfont!
-Missing character: There is no ; in font nullfont!
-Missing character: There is no ; in font nullfont!
-Missing character: There is no ; in font nullfont!
-Missing character: There is no ; in font nullfont!
-Missing character: There is no ; in font nullfont!
-Missing character: There is no ; in font nullfont!
-Missing character: There is no ; in font nullfont!
-Missing character: There is no ; in font nullfont!
-Missing character: There is no ; in font nullfont!
-Missing character: There is no ; in font nullfont!
-Missing character: There is no ; in font nullfont!
-Missing character: There is no ; in font nullfont!
-Missing character: There is no ; in font nullfont!
-Missing character: There is no ; in font nullfont!
-Missing character: There is no ; in font nullfont!
-Missing character: There is no ; in font nullfont!
-Missing character: There is no ; in font nullfont!
+ </Users/SilvinW/repositories/SMC_2020/SMC 2020 paper template LaTeX/IMG_7980.pdf> </Users/SilvinW/repositories/SMC_2020/SMC 2020 paper template LaTeX/IMG_7982.JPG>]
 
-Overfull \hbox (1.03456pt too wide) in paragraph at lines 319--321
-\OT1/ptm/m/n/10 term which can then be in-cluded in the PDEs is $\OML/cmm/m/it/10 ^^^[]\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 ^^Q[]\OT1/cmr/m/n/10 ) =
- []
+LaTeX Warning: Reference `sec:models' on page 2 undefined on input line 200.
+
+
+LaTeX Warning: Reference `sec:disc' on page 2 undefined on input line 200.
+
+
+LaTeX Warning: Reference `eq:PDEform' on page 2 undefined on input line 211.
+
+
+LaTeX Warning: Reference `eq:PDEform' on page 2 undefined on input line 221.
+
+
+LaTeX Warning: Citation `Ducceschi2019' on page 2 undefined on input line 334.
+
+
+LaTeX Warning: Citation `Falaize2016a:SMC2020' on page 2 undefined on input line 341.
+
+
+LaTeX Warning: Citation `Falaize2016b:SMC2020' on page 2 undefined on input line 341.
+
+
+LaTeX Warning: Citation `Lopes:SMC2020' on page 2 undefined on input line 341.
+
+
+LaTeX Warning: Citation `Ducceschi2019' on page 2 undefined on input line 341.
 
 [2]
-Overfull \hbox (8.43497pt too wide) in paragraph at lines 383--422
+
+LaTeX Warning: Reference `eq:phiToPsi' on page 3 undefined on input line 349.
+
+
+LaTeX Warning: Reference `sec:disc' on page 3 undefined on input line 349.
+
+
+LaTeX Warning: Reference `eq:potential' on page 3 undefined on input line 351.
+
+
+LaTeX Warning: Citation `Bilbao2019' on page 3 undefined on input line 351.
+
+
+LaTeX Warning: Reference `eq:bowedString' on page 3 undefined on input line 359.
+
+
+LaTeX Warning: Reference `eq:PDEform' on page 3 undefined on input line 359.
+
+
+LaTeX Warning: Reference `eq:fullSystem' on page 3 undefined on input line 375.
+
+
+LaTeX Warning: Citation `bilbao2009numerical' on page 3 undefined on input line 387.
+
+
+LaTeX Warning: Reference `eq:discTimeOperators' on page 3 undefined on input line 387.
+
+
+LaTeX Warning: Reference `eq:bowedString' on page 3 undefined on input line 399.
+
+
+LaTeX Warning: Reference `eq:discTimeOperators' on page 3 undefined on input line 403.
+
+
+LaTeX Warning: Reference `eq:fullSystem' on page 3 undefined on input line 409.
+
+[3]
+
+LaTeX Warning: Reference `eq:phiToPsi' on page 4 undefined on input line 429.
+
+
+LaTeX Warning: Citation `bilbao2009numerical' on page 4 undefined on input line 444.
+
+
+LaTeX Warning: Reference `eq:gnRewritten' on page 4 undefined on input line 466.
+
+
+LaTeX Warning: Reference `eq:identity' on page 4 undefined on input line 466.
+
+
+LaTeX Warning: Reference `eq:gn' on page 4 undefined on input line 466.
+
+
+LaTeX Warning: Reference `eq:dummySystem' on page 4 undefined on input line 466.
+
+
+LaTeX Warning: Citation `Ducceschi2019' on page 4 undefined on input line 470.
+
+
+LaTeX Warning: Citation `Ducceschi2019' on page 4 undefined on input line 474.
+
+
+LaTeX Warning: Reference `eq:analytic' on page 4 undefined on input line 474.
+
+
+LaTeX Warning: Reference `eq:phiConnection' on page 4 undefined on input line 474.
+
+
+LaTeX Warning: Reference `eq:potential' on page 4 undefined on input line 478.
+
+
+LaTeX Warning: Reference `eq:fullSystem' on page 4 undefined on input line 486.
+
+
+Overfull \hbox (5.95218pt too wide) in alignment at lines 487--495
+ [][] []
+ []
+
+
+LaTeX Warning: Reference `eq:analytic' on page 4 undefined on input line 509.
+
+
+LaTeX Warning: Citation `bilbao2009numerical' on page 4 undefined on input line 509.
+
+
+LaTeX Warning: Reference `eq:qn' on page 4 undefined on input line 511.
+
+
+LaTeX Warning: Reference `eq:etaSMDisc' on page 4 undefined on input line 511.
+
+
+LaTeX Warning: Reference `eq:etaMPDisc' on page 4 undefined on input line 511.
+
+
+LaTeX Warning: Reference `eq:fullSystemDisc' on page 4 undefined on input line 511.
+
+
+LaTeX Warning: Citation `JUCE2020' on page 4 undefined on input line 514.
+
+
+LaTeX Warning: Reference `eq:massDisc' on page 4 undefined on input line 517.
+
+
+LaTeX Warning: Reference `eq:discTimeOperators' on page 4 undefined on input line 521.
+
+
+LaTeX Warning: Reference `eq:offset' on page 4 undefined on input line 529.
+
+
+LaTeX Warning: Reference `fig:trombaSystem' on page 4 undefined on input line 529.
+
+Package epstopdf Info: Source file: <trombaSystem.eps>
+(epstopdf)                    date: 2020-02-19 16:14:55
+(epstopdf)                    size: 1140809 bytes
+(epstopdf)             Output file: <trombaSystem-eps-converted-to.pdf>
+(epstopdf)                    date: 2020-02-25 13:29:01
+(epstopdf)                    size: 38520 bytes
+(epstopdf)             Command: <repstopdf --outfile=trombaSystem-eps-converted-to.pdf trombaSystem.eps>
+(epstopdf)             \includegraphics on input line 532.
+Package epstopdf Info: Output file is already uptodate.
+<trombaSystem-eps-converted-to.pdf, id=92, 602.25pt x 301.125pt>
+File: trombaSystem-eps-converted-to.pdf Graphic file (type pdf)
+ <use trombaSystem-eps-converted-to.pdf>
+Package pdftex.def Info: trombaSystem-eps-converted-to.pdf used on input line 532.
+(pdftex.def)             Requested size: 233.31259pt x 116.65715pt.
+
+
+LaTeX Warning: Reference `eq:fullSystemDisc' on page 4 undefined on input line 533.
+
+
+LaTeX Warning: Reference `eq:offset' on page 4 undefined on input line 533.
+
+
+LaTeX Warning: Reference `eq:etaSMDisc' on page 4 undefined on input line 533.
+
+
+LaTeX Warning: Reference `eq:fullSystemDisc' on page 4 undefined on input line 533.
+
+
+LaTeX Warning: Reference `eq:offset' on page 4 undefined on input line 533.
+
+
+LaTeX Warning: Reference `eq:etaSMDisc' on page 4 undefined on input line 533.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+
+LaTeX Warning: Reference `sec:introduction' on page 4 undefined on input line 538.
+
+
+LaTeX Warning: Citation `bilbao2009numerical' on page 4 undefined on input line 538.
+
+
+LaTeX Warning: Reference `eq:stringDisc' on page 4 undefined on input line 538.
+
+
+Overfull \hbox (1.60478pt too wide) in paragraph at lines 538--539
+\OT1/ptm/m/n/10 fer-ent pitches are played on the tromba ma-rina, is to slightly
+ []
+
+[4]
+
+LaTeX Warning: Citation `Willemsen2019:SMC2020' on page 5 undefined on input line 543.
+
+
+LaTeX Warning: Reference `eq:gridSpacingPlate' on page 5 undefined on input line 548.
+
+
+LaTeX Warning: Reference `alg:calcOrder' on page 5 undefined on input line 551.
+
+
+Underfull \hbox (badness 8189) in paragraph at lines 580--580
+\OT1/ptm/m/n/10 con-nec-tion forces and
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 580--580
+
+ []
+
+
+LaTeX Warning: Reference `eq:stringDisc' on page 5 undefined on input line 580.
+
+
+LaTeX Warning: Reference `eq:stringDisc' on page 5 undefined on input line 580.
+
+
+LaTeX Warning: Reference `eq:dampingFinger' on page 5 undefined on input line 580.
+
+
+LaTeX Warning: Reference `eq:gnSM' on page 5 undefined on input line 580.
+
+
+LaTeX Warning: Reference `eq:gnMP' on page 5 undefined on input line 580.
+
+
+LaTeX Warning: Reference `eq:stringDisc' on page 5 undefined on input line 580.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 580--580
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 580--580
+[]$[]$
+ []
+
+
+LaTeX Warning: Reference `tab:parameters' on page 5 undefined on input line 588.
+
+
+LaTeX Warning: Citation `Baldwin2016:SMC2020' on page 5 undefined on input line 588.
+
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <9> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 598.
+
+Overfull \hbox (1.81212pt too wide) in paragraph at lines 595--638
  [] 
  []
 
 
-Overfull \hbox (0.97586pt too wide) in paragraph at lines 427--431
+LaTeX Warning: Citation `Baldwin2016:SMC2020' on page 5 undefined on input line 638.
+
+
+LaTeX Warning: Citation `Baldwin2016:SMC2020' on page 5 undefined on input line 638.
+
+
+LaTeX Warning: Reference `fig:GUI' on page 5 undefined on input line 643.
+
+[5 </Users/SilvinW/repositories/SMC_2020/SMC 2020 paper template LaTeX/trombaSystem-eps-converted-to.pdf>]
+
+LaTeX Warning: File `applicationDescription.png' not found on input line 658.
+
+
+/Users/SilvinW/repositories/SMC_2020/SMC 2020 paper template LaTeX/smc2020template.tex:658: Package pdftex.def Error: File `applicationDescription.png' not found.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.658 ...\columnwidth]{applicationDescription.png}
+                                                  
+Using draft setting for this image.
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: Reference `sec:GUI' on page 6 undefined on input line 659.
+
+
+LaTeX Warning: Reference `sec:GUI' on page 6 undefined on input line 659.
+
+
+LaTeX Warning: Citation `sensel2020' on page 6 undefined on input line 664.
+
+
+LaTeX Warning: Reference `tab:parameters' on page 6 undefined on input line 670.
+
+
+LaTeX Warning: Citation `Ducceschi2019' on page 6 undefined on input line 670.
+
+[6]
+Overfull \hbox (0.97586pt too wide) in paragraph at lines 680--684
 \OT1/ptm/m/n/10 Hub Nordic Sound and Mu-sic Com-put-ing Net-work Nordic-
  []
 
-(/Users/SilvinW/repositories/SMC_2020/SMC 2020 paper template LaTeX/smc2020template.bbl
-Missing character: There is no Ã in font ptmr7t!
-Missing character: There is no ¦ in font ptmr7t!
-Missing character: There is no Ã in font ptmri7t!
-Missing character: There is no ¦ in font ptmri7t!
-Missing character: There is no Ã in font ptmr7t!
-Missing character: There is no ¦ in font ptmr7t!
+No file smc2020template.bbl.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 691.
+[7
 
-Underfull \hbox (badness 4954) in paragraph at lines 30--32
-[]\OT1/ptm/m/n/10 C. Cadoz, ``Synth[]ese sonore par sim-u-la-tion de
- []
-
-
-Underfull \hbox (badness 2229) in paragraph at lines 30--32
-\OT1/ptm/m/n/10 m[]ecanismes vi-bra-toires,'' 1979, th[]ese de Doc-teur
- []
-
-[3]) [4]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 437.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 437.
+]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 691.
  (/Users/SilvinW/repositories/SMC_2020/SMC 2020 paper template LaTeX/smc2020template.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 437.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 437.
-Package rerunfilecheck Info: File `smc2020template.out' has not changed.
-(rerunfilecheck)             Checksum: 9D6323E9F50FB7F5AC684639B2767189;552.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 691.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 691.
 
 
-LaTeX Warning: There were multiply-defined labels.
+Package rerunfilecheck Warning: File `smc2020template.out' has changed.
+(rerunfilecheck)                Rerun to get outlines right
+(rerunfilecheck)                or use package `bookmark'.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 437.
+Package rerunfilecheck Info: Checksums for `smc2020template.out':
+(rerunfilecheck)             Before: <no file>
+(rerunfilecheck)             After:  F638136363751BED2DE220D5B74B9CD9;1320.
+
+LaTeX Warning: There were undefined references.
+
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 691.
  )
-(\end occurred when \ifx on line 49 was incomplete) 
+(\end occurred inside a group at level 1)
+
+### simple group (level 1) entered at line 1061 ({)
+### bottom level
+(\end occurred when \ifx on line 51 was incomplete) 
 Here is how much of TeX's memory you used:
- 16846 strings out of 493014
- 314154 string characters out of 6133351
- 389365 words of memory out of 5000000
- 20006 multiletter control sequences out of 15000+600000
- 20493 words of font info for 48 fonts, out of 8000000 for 9000
+ 18181 strings out of 493014
+ 333522 string characters out of 6133351
+ 423050 words of memory out of 5000000
+ 21276 multiletter control sequences out of 15000+600000
+ 32786 words of font info for 78 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 55i,14n,54p,796b,663s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/local/texlive/2016/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmmib10.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/urw/courier/ucrr8a.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on "/Users/SilvinW/repositories/SMC_2020/SMC 2020 paper template LaTeX/smc2020template.pdf" (4 pages, 8834561 bytes).
+ 55i,21n,54p,881b,6713s stack positions out of 5000i,500n,10000p,200000b,80000s
+{/usr/local/texlive/2016/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi9.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmmib10.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmmib7.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy9.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/urw/courier/ucrr8a.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
+Output written on "/Users/SilvinW/repositories/SMC_2020/SMC 2020 paper template LaTeX/smc2020template.pdf" (7 pages, 16356069 bytes).
 PDF statistics:
- 217 PDF objects out of 1000 (max. 8388607)
- 193 compressed objects within 2 object streams
- 57 named destinations out of 1000 (max. 500000)
- 98 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 254 PDF objects out of 1000 (max. 8388607)
+ 211 compressed objects within 3 object streams
+ 77 named destinations out of 1000 (max. 500000)
+ 28 words of extra memory for PDF output out of 10000 (max. 10000000)
 
