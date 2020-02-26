@@ -585,7 +585,7 @@ $\boldsymbol{\psi}^{n-1/2} = \boldsymbol{\psi}^{n+1/2}$
 In theory, in order to iteratively calculate the bow force, the collision and connection forces should be included in this. \SWcomment[Hmm.. but the rest of the system is explicit. Shouldn't the system be calculated in its entirety before the NR calculation?] However, as the string is practically never bowed at the bridge position $x_\text{sm}$, these can be calculated independently.
 
 \subsection{Parameter design}
-The list of parameters used can be found in Table \ref{tab:parameters}. As the authors had a real (recreated) tromba marina (presented in \cite{Baldwin2016:SMC2020}) at their disposal, some parameters have been measured in accordance to the real instrument.
+The list of parameters used can be found in Table \ref{tab:parameters}. As the authors had a real (recreated) tromba marina (presented in \cite{Baldwin2016:SMC2020}) at their disposal, some parameters have been measured in accordance to the real instrument, others have been emperically tuned.
 
 Regarding the output of the system, through empirical testing it was decided to retrieve the output from the state of the plate right at the point of collision $(x_\text{mp},y_\text{mp})$ combined with the sound of the string at a lower volume. It can be argued that the loudest sound comes from the collision between the bridge and the body making it logical to select this point as the output position. 
 
@@ -671,7 +671,7 @@ Figure \ref{fig:waveforms} shows the isolated outputs of the string (where $x = 
 The string shows a classic Helmholtz motion which is expected of a bowed string. 
 As can be seen from Table \ref{tab:parameters}, the non-linear collision coefficients $\alpha_\text{sm}$ and $\alpha_\text{mp}$ are set to $1$. We found some odd behaviour when increasing this value, where the bridge would `get stuck' behind the plate, i.e., values for $\psi_\text{mp}$ would be negative for a prolonged period of time. The explicit technique used in this work allows for this to happen (and can be proven to still be stable in this case \cite{Ducceschi2019}), but it is ``unphysical" to have a negative potential as this implies a ``pulling" collision. This is also the reason why the reset button presented in Section \ref{sec:GUI} has been implemented. Further investigation will be necessary to figure out a way to prevent this behaviour.
 
-\begin{figure}
+\begin{figure}[h]
   \centering
   \includegraphics[width=\columnwidth]{trombaWaveforms2.eps}
   \caption{The isolated outputs of the bridge and body (at collision location $(x_\text{sm},y_\text{sm})$) with bow parameters $x_\text{b} = 0.3L$, $v_\text{b} = 0.2$, $F_\text{b} = 0.1$ and damping finger position $x_\text{f} = 0.5x_\text{sm}$ to induce the lowest harmonic.}
