@@ -147,7 +147,12 @@
 \def\SWcomment[#1]{\textcolor{Bittersweet}{#1}}
 \def\MDcomment[#1]{\textcolor{Blue}{#1}}
 \def\SScomment[#1]{\textcolor{OliveGreen}{#1}}
-\def\stringx{\text{\it x}}
+\def\stringx{\chi}
+\def\ugen{q}
+\def\us{u}
+\def\um{w}
+\def\up{z}
+
 \begin{document}
 %
 \capstartfalse
@@ -155,7 +160,7 @@
 \capstarttrue
 %
 \begin{abstract}
-The tromba marina is a medieval bowed monochord instrument. The string of the instrument rests on a rattling bridge that, due to the collision with the body, creates a trumpet-like sound. This paper presents a real-time implementation of a physical model of the tromba marina. The goal of the simulation is to make the instrument accessible to a large audience, which it currently is not due to its rarity. The physical model is implemented using finite-difference time-domain (FDTD) methods and non-iterative collision methods. An application is made in real-time using C++. The simulation exhibits brass-like qualities and sounds similar to a real tromba marina but requires further testing to validate the realism.
+The tromba marina is a medieval bowed monochord instrument. The string of the instrument rests on a rattling bridge that, due to the collision with the body, creates a trumpet-like sound. This paper presents a real-time implementation of a physical model of the tromba marina. The goal of the simulation is to make the instrument accessible to a larger audience. The physical model is implemented using finite-difference time-domain (FDTD) methods and non-iterative collision methods. A realtime implementation of the instrument is also presented. The simulation exhibits brass-like qualities and sounds similar to a real tromba marina but requires further testing to validate the realism.
 %You can place comments in colour if you want :) Like \SBcomment[this (Stefan)], \MDcomment[this (Michele)] or \SScomment[this (Stefania)].
 \end{abstract}
 %
@@ -188,32 +193,32 @@ The tromba marina is therefore a rather unusual instrument with interesting acou
 Physical modelling for sound synthesis has a long history. Various techniques have been developed to simulate real-world instruments, including mass-spring systems~\cite{cadoz79}, digital waveguides~\cite{smith1992physical} and modal synthesis~\cite{morrison1993mosaic}.
 Finite-difference time-domain (FDTD) methods were first used for sound synthesis by Hiller and Ruiz in ~\cite{Ruiz1969, Hiller1971, Hiller2}, later by Chaigne et al. in ~\cite{Chaigne92, Chaigne} and elaborated upon by Bilbao and colleagues in ~\cite{bilbao2009numerical, Bilbao2018:Tutorial}. Compared with other techniques, FDTD methods are more computationally expensive, but easily generalisable and flexible---no assumptions of linearity of travelling wave solutions are employed. Our goal is to implement these techniques in real time and thereby make the simulations playable for the users. For this purpose, we use the expressive Sensel Morph controller \cite{sensel2020}. Other work in real-time control of FDTD methods using this controller include \cite{Willemsen2019a:SMC2020, Willemsen2019c:SMC2020, Willemsen2019b:SMC2020}. 
 
-The emulation of nonlinear collision interactions in musical instruments normally requires the use of iterative solvers (such as, e.g. Newton-Raphson) \cite{Bilbao15}. For the nonlinear collisions present in the instrument, a method recently proposed in the field of audio by Lopes and Falaize in \cite{Lopes:SMC2020, Falaize2016a:SMC2020, Falaize2016b:SMC2020} and later by Ducceschi and Bilbao in~\cite{Ducceschi2019} allows such iterative methods to be sidestepped. It is thus suited  to creating a real-time implementation of the tromba marina.
+The emulation of nonlinear collision interactions in musical instruments normally requires the use of iterative solvers (such as the Newton-Raphson algorithm) \cite{Bilbao15}. For the nonlinear collisions present in the instrument, a method recently proposed in the field of audio by Lopes and Falaize in \cite{Lopes:SMC2020, Falaize2016a:SMC2020, Falaize2016b:SMC2020} and later by Ducceschi and Bilbao in~\cite{Ducceschi2019} allows such iterative methods to be sidestepped. It is thus suited  to creating a real-time implementation of the tromba marina.
 
 This paper is structured as follows: Section \ref{sec:models} presents the models used and Section \ref{sec:disc} shows the discretisation of these. Section \ref{sec:implementation} provides information about implementation, parameter choices, the graphical user interface and control and mapping. Section \ref{sec:resDisc} shows the results and discusses these. Concluding remarks and future work are presented in Section \ref{sec:conclusion}.
 
 \section{Models}\label{sec:models}
 The tromba marina can be subdivided into three main components: the string, the bridge and the body. In this section, the partial differential equations (PDEs) of the different components in isolation, under zero-input conditions, will be of the form
 \begin{equation}\label{eq:PDEform}
-    \mathcal{L}u = 0.
+    \mathcal{L}\ugen = 0.
 \end{equation}
-Here, $u = u(\boldsymbol{x},t)$ represents the state of the component at time $t$ and spatial coordinate $\boldsymbol{x}\in\mathcal{D}$, where the dimensions of domain $\mathcal{D}$ depend on the component at hand. Furthermore, $\mathcal{L}$ is a partial differential operator. (Subscripts `$\text{s}$', `$\text{m}$' and `$\text{p}$' used subsequently indicate that \eqref{eq:PDEform} applies to the string, bridge (mass) or body (plate), respectively.)
+Here, $\ugen = \ugen(\boldsymbol{x},t)$ represents the state of the component at time $t$ and spatial coordinate $\boldsymbol{x}\in\mathcal{D}$, where the dimensions of domain $\mathcal{D}$ depend on the component at hand. Furthermore, $\mathcal{L}$ is a partial differential operator. (Subscripts `$\text{s}$', `$\text{m}$' and `$\text{p}$' used subsequently indicate that \eqref{eq:PDEform} applies to the string, bridge (mass) or body (plate), respectively.)
 
 \subsection{Bowed Stiff String}
-Consider a damped stiff string of length $L$ (m), with domain $\mathcal{D} = \mathcal{D}_\text{s} = [0,L]$ and state variable $u = u_\text{s}(\stringx,t)$.  
+Consider a damped stiff string of length $L$ (m), with domain $\mathcal{D} = \mathcal{D}_\text{s} = [0,L]$ and state variable $\ugen = \us(\stringx,t)$.  
 With reference to \eqref{eq:PDEform}, we define the operator $\mathcal{L} = \mathcal{L_\text{s}}$ as
 \begin{equation}
-    \mathcal{L}_\text{s} = \rho_\text{s} A \partial_t^2 - T\partial_x^2 + E_\text{s}I\partial_x^4+2\rho_\text{s} A\sigma_{0,\text{s}}\partial_t-2\rho_\text{s} A\sigma_{1,\text{s}}\partial_t\partial_x^2.
+    \mathcal{L}_\text{s} = \rho_\text{s} A \partial_t^2 - T\partial_\stringx^2 + E_\text{s}I\partial_\stringx^4+2\rho_\text{s} A\sigma_{0,\text{s}}\partial_t-2\rho_\text{s} A\sigma_{1,\text{s}}\partial_t\partial_\stringx^2.
 \end{equation}
-\SWcomment[Do the derivatives here also need the special character used for $x$ (such as $\partial_\stringx^2$)?] Here, $\partial_{t}$ and $\partial_{x}$ indicate partial differentiation with respect to $t$ and $\stringx$. The various parameters appear as: material density $\rho_\text{s}$ (kg$\cdot$m$^{-3}$), cross-sectional area $A = \pi r^2$ (m$^2$), radius $r$ (m), tension $T = (2f_{0,\text{s}}L)^2\rho_\text{s}A$ (N),\footnote{Even though this definition for $T$ from the fundamental frequency $f_{0,\text{s}}$ is only valid for a simply supported string without stiffness, the effect of the stiffness we eventually choose on $f_{0,\text{s}}$ is negligible.} %\MDcomment[is this formula valid when you have stiffness? It seems to me that it is only valid under fixed boundary conditions for the wave equation without stiffness]
+Here, $\partial_{t}$ and $\partial_{\stringx}$ indicate partial differentiation with respect to $t$ and $\stringx$. The various parameters appear as: material density $\rho_\text{s}$ (kg$\cdot$m$^{-3}$), cross-sectional area $A = \pi r^2$ (m$^2$), radius $r$ (m), tension $T = (2f_{0,\text{s}}L)^2\rho_\text{s}A$ (N),\footnote{Even though this definition for $T$ from the fundamental frequency $f_{0,\text{s}}$ is only valid for a simply supported string without stiffness, the effect of the stiffness we eventually choose on $f_{0,\text{s}}$ is negligible.} %\MDcomment[is this formula valid when you have stiffness? It seems to me that it is only valid under fixed boundary conditions for the wave equation without stiffness]
 fundamental frequency $f_{0,\text{s}}$ (s$^{-1}$), Young's modulus $E_\text{s}$ (Pa) , moment of inertia $I=\pi r^4 / 4$ (m$^4$), and loss coefficients $\sigma_{0,\text{s}}$ (s$^{-1}$) and $\sigma_{1,\text{s}}$ (m$^2$/s). We set the boundary conditions to be simply supported so that
 \begin{equation}\label{boundary}
-    u_\text{s} = \partial_x^2u_\text{s} = 0 \quad \text{for} \quad \stringx = 0, L.
+    \us = \partial_x^2\us = 0 \quad \text{for} \quad \stringx = 0, L.
 \end{equation}
 %\SWcomment[In the DAFx paper from last year we wrote $x = 0, L$ instead of $x = {[}0, L{]}$, as -- in this case -- we don't want to specify a domain but single locations instead. Which is correct?]
 As the string is excited using a bow, Equation \eqref{eq:PDEform} may be augmented as \cite{bilbao2009numerical}
 \begin{equation}\label{eq:bowedString}
-    \mathcal{L}_\text{s}u_\text{s} = -\delta(\stringx-\stringx_\text{b})F_\text{b}\Phi(v_\text{rel}),
+    \mathcal{L}_\text{s}\us = -\delta(\stringx-\stringx_\text{b})F_\text{b}\Phi(v_\text{rel}),
 \end{equation}
 with externally supplied downward bow force $F_\text{b} = F_\text{b}(t)$ (N), spatial Dirac delta function $\delta(\stringx-\stringx_\text{b})$ (m) selecting the bow position $\stringx_\text{b} = \stringx_\text{b}(t)\in \mathcal{D}_\text{s}$ (m) and dimensionless friction characteristic
 \begin{equation}
@@ -221,20 +226,20 @@ with externally supplied downward bow force $F_\text{b} = F_\text{b}(t)$ (N), sp
 \end{equation}
 with free parameter $a$. The relative velocity between the string at bow location $\stringx_\text{b}$ and the externally supplied bow velocity $v_\text{b} = v_\text{b}(t)$ (m/s) is defined as
 \begin{equation}
-    v_\text{rel} = \partial_tu_\text{s}(\stringx_\text{b},t) - v_\text{b}.
+    v_\text{rel} = \partial_t\us(\stringx_\text{b},t) - v_\text{b}.
 \end{equation}
 
 \subsection{Bridge}
 The bridge is modelled as a simple mass-spring-damper system. As this system is point-like, or zero-dimensional, 
-the state variable $u = u_\text{m}(t)$ and the definition of domain $\mathcal{D}$ is unnecessary. The operator $\mathcal{L}=\mathcal{L}_\text{m}$ is defined as
+the state variable $q = w(t)$ and the definition of domain $\mathcal{D}$ is unnecessary. The operator $\mathcal{L}=\mathcal{L}_\text{m}$ is defined as
 \begin{equation}
     \mathcal{L}_\text{m}=M\frac{d^2}{dt^2}+M\omega_0^2+MR\frac{d}{dt},
 \end{equation}
 with mass $M$ (kg), linear angular frequency of oscillation $\omega_0=2\pi f_{0,\text{m}}$,  (s$^{-1}$), fundamental frequency $f_{0,\text{m}}$ (s$^{-1}$) and damping coefficient $R$ (s$^{-1}$).
 
 \subsection{Body}
-The body is simplified to a two-dimensional plate with side-lengths $L_x$ and $L_y$, domain $\mathcal{D} = \mathcal{D}_\text{p} = [0,L_x] \times [0,L_y]$ and state variable $u = u_\text{p}(x,y,t)$. Using the 2D Laplacian
-\begin{equation}
+The body is simplified to a two-dimensional plate with side-lengths $L_x$ and $L_y$, domain $\mathcal{D} = \mathcal{D}_\text{p} = [0,L_x] \times [0,L_y]$ and state variable $q = \up(x,y,t)$. Using the 2D Laplacian
+\begin{equation}\label{eq:laplacian}
     \Delta \triangleq \partial_x^2+\partial_y^2,
 \end{equation}
 the operator $\mathcal{L} = \mathcal{L}_\text{p}$ can be defined as
@@ -243,11 +248,12 @@ the operator $\mathcal{L} = \mathcal{L}_\text{p}$ can be defined as
 \end{equation}
 with material density $\rho_\text{p}$ (kg$\cdot$m$^{-3}$), plate thickness $H$ (m), stiffness coefficient $D = E_\text{p}H^3/12(1-\nu^2)$, Young's modulus $E_\text{p}$ (Pa), dimensionless Poisson's ratio $\nu$, and loss coefficients $\sigma_{0,\text{p}}$ (s$^{-1}$) and $\sigma_{1,\text{p}}$ (m$^2$/s). The boundary conditions of the plate are set to be clamped so that
 \begin{equation}
-    u_\text{p} = {\bf n} \cdot \nabla u_\text{p} = 0.
+    \up = {\bf n} \cdot \nabla \up = 0.
 \end{equation}
-where $\nabla u_\text{p}$ is the gradient of $u_\text{p}$, and where ${\bf n}$ indicates a normal to the plate area at the boundary.
+where $\nabla \up$ is the gradient of $\up$, and where ${\bf n}$ indicates a normal to the plate area at the boundary.
 \subsection{Collisions}
-\SBcomment[Could really use a diagram here to make sense of the geometry of the rattling bridge ]  \SWcomment[Something like this?]
+\SBcomment[Could really use a diagram here to make sense of the geometry of the rattling bridge ]  \SWcomment[Something like this?]\SBcomment[I guess I meant a diagram of the whole system, showing string/bridge/plate, and all the connection points...] \SWcomment[Something like Figure \ref{fig:trombaSystem}? I thought if would make more sense down there as everything (including the offset) is introduced by then. I thought the first two figures on the first page would clarify how the physical system looked, but maybe it's not clear enough...]
+\SScomment[I thihk it is hard from Figure 3 to see that the b part is rattling. Maybe add the body so it is easier to see that a is attached while b is not?]
 \begin{figure}[ht]
     \centering
     \begin{tikzpicture}
@@ -331,7 +337,7 @@ It can be argued that the greatest contributor to the characteristic sound of th
     \phi_\text{mp}(\eta_\text{mp}) = \frac{K_\text{mp}}{\alpha_\text{mp}+1}[\eta_\text{mp}]_+^{\alpha_\text{mp}+1},
 \end{equation}
 \begin{equation*}
-    K_\text{mp}>0, \quad \alpha_\text{mp}\geq 1, \quad \eta_\text{mp}\triangleq u_\text{p}(x_\text{mp},y_\text{mp},t) - u_\text{m}(t)
+    K_\text{mp}>0, \quad \alpha_\text{mp}\geq 1, \quad \eta_\text{mp}\triangleq \up(x_\text{mp},y_\text{mp},t) - \um(t)
 \end{equation*}
 where $K_\text{mp}$ is the collision stiffness (N/m if $\alpha_\text{mp} = 1$), $\alpha_\text{mp}$ is the dimensionless nonlinear collision coefficient, and $\eta_\text{mp} = \eta_\text{mp}(t)$ is the distance between the rattling part of the bridge and the body at the point of collision (m). Furthermore, $[\eta_\text{mp}]_+ = 0.5(\eta_\text{mp}+|\eta_\text{mp}|)$ is the positive part of $\eta_\text{mp}$. The term which can then be included in the PDEs is $\phi_\text{mp}' = d\phi_\text{mp}/d\eta_\text{mp}$. As described in \cite{Falaize2016a:SMC2020, Falaize2016b:SMC2020, Lopes:SMC2020, Ducceschi2019}, using this form of the potential requires using iterative methods for solving its discrete counterpart. The authors proposed to rewrite the potential to
 \begin{equation}
@@ -349,7 +355,7 @@ As the string rests on the bridge, the interaction between these components need
 \end{equation}
 %
 \begin{equation*}
-    K_\text{sm}>0, \quad \alpha_\text{sm}\geq 1, \quad \eta_\text{sm}\triangleq u_\text{m}(t) - u_\text{s}(\stringx_\text{sm},t)
+    K_\text{sm}>0, \quad \alpha_\text{sm}\geq 1, \quad \eta_\text{sm}\triangleq \um(t) - \us(\stringx_\text{sm},t)
 \end{equation*}
 where $\eta_\text{sm} = \eta_\text{sm}(t)$ is the distance between the string at the location of the bridge and the bridge itself. 
 
@@ -358,12 +364,12 @@ where $\eta_\text{sm} = \eta_\text{sm}(t)$ is the distance between the string at
 A complete system for the tromba marina may be written, in continuous-time as:
 \begin{subnumcases}{\label{eq:fullSystem}}
 % \begin{aligned}
-    \mathcal{L}_\text{s}u_\text{s} &$=-\delta(\stringx-\stringx_\text{b})F_\text{b}\Phi(v_\text{rel})$ \label{eq:stringPotential}\\
+    \mathcal{L}_\text{s}\us &$=-\delta(\stringx-\stringx_\text{b})F_\text{b}\Phi(v_\text{rel})$ \label{eq:stringPotential}\\
     & $\quad\ \,\!\!+\  \delta(\stringx-\stringx_\text{sm})\psi_\text{sm}\psi_\text{sm}'$\nonumber\\
-    \mathcal{L}_\text{m}u_\text{m} &$= -\psi_\text{sm}\psi_\text{sm}' + \psi_\text{mp}\psi_\text{mp}',$\label{eq:massPotential}\\
-    \mathcal{L}_\text{p}u_\text{p} &$= -\delta(x-x_\text{mp}, y-y_\text{mp})\psi_\text{mp}\psi_\text{mp}',$\qquad\label{eq:platePotential}\\
-    \eta_\text{sm} &$= u_\text{m}(t) - u_\text{s}(\stringx_\text{sm}, t),$\\
-    \eta_\text{mp} &$=  u_\text{p}(x_\text{mp}, y_\text{mp}, t) - u_\text{m}(t),$
+    \mathcal{L}_\text{m}\um &$= -\psi_\text{sm}\psi_\text{sm}' + \psi_\text{mp}\psi_\text{mp}',$\label{eq:massPotential}\\
+    \mathcal{L}_\text{p}\up &$= -\delta(x-x_\text{mp}, y-y_\text{mp})\psi_\text{mp}\psi_\text{mp}',$\qquad\label{eq:platePotential}\\
+    \eta_\text{sm} &$= \um(t) - \us(\stringx_\text{sm}, t),$\\
+    \eta_\text{mp} &$=  \up(x_\text{mp}, y_\text{mp}, t) - \um(t),$
 % \end{aligned}
 \end{subnumcases}
 %\MDcomment[There is a little confusion that may arise in the notation, as $x$ is used to indicate the coordinate on the string, and on the plate ... but those are two different x's. You could use a different letter for the string, perhaps a greek letter? say $\chi$]{}
@@ -372,18 +378,18 @@ where $\stringx_\text{sm} \in \mathcal{D}_\text{s}$ is the location of the bridg
 %Furthermore, to avoid confusion between the coordinate along the string and the x-coordinate on the plate, we use $u(\chi,t)$ for the string.
 %Note that the potentials belonging to a single collision in the above system have inverse signs as the collision force acts inversely on the two components. \textbf{not sure if this sentence is necessary, and otherwise rewrite..}\MDcomment[I think that this sentence is unncessary ... the signs are correct because the force is always acting against the displacement (or you can do energy analysis, and you'll get the same answer)]{}
 
-\SBcomment[OK, here I would use a different coordinate $\eta$ or something for the spatial coordinate along the string, which is not the same as $x$ for the plate...this needs to be changed in the earlier sections as well. ] \SWcomment[Could I use something that looks more like an `x' (such as $\text{\it x}$)?]{}
+% \SBcomment[OK, here I would use a different coordinate $\eta$ or something for the spatial coordinate along the string, which is not the same as $x$ for the plate...this needs to be changed in the earlier sections as well. ] \SWcomment[Could I use something that looks more like an `x' (such as $\text{\it x}$)?]{} \SBcomment[It would be good to pick something without a subscript if possible. Maybe $\xi$ for the string?] \SWcomment[I'm not sure what you mean with ``without a subscript".. Do you mean regular character? $\text{\it x}$ is without a subscript at this point and a different symbol than $x$. If you think they look too much alike, I could use $\xi$, but I feel that using anything different than an $x$-like symbol for space would be counterintuitive (for me and also perhaps the reader)]\SBcomment[OK, but the difference between $x$ and $\text{\it x}$ is going to be even more confusing I think...] \SWcomment[Michele proposed $\chi$ earlier. Maybe I'll do that instead.. or $X$?]{}\SBcomment[$\chi$ is a good choice...]
 
 \section{Discretisation}\label{sec:disc}
 System \eqref{eq:fullSystem} is discretised using FDTD methods. These methods subdivide the continuous system in grid points in space and samples in time. To approximate the state of a system in isolation we use
 \begin{equation}\label{eq:generalDisc}
-    u(\boldsymbol{x},t) \approx u^n_{\boldsymbol{l}}, 
+    \ugen(\boldsymbol{x},t) \approx \ugen^n_{\boldsymbol{l}}, 
 \end{equation} 
-where grid function $u^n_{\boldsymbol{l}}$ is a discrete version of $u({\boldsymbol{x}},t)$ sampled at $t=nk$ with time step $k$ (s), sample $n \in \mathbb{N}$ and location $\boldsymbol{l}$ that depends on domain $\mathcal{D}$ of the system at hand. In the case of the string, we use $\stringx=lh_\text{s}$ with grid spacing $h_\text{s}$ (m), $\boldsymbol{l} = l \in [0,\hdots, N]$ and total number of grid points $N=L/h_\text{s} + 1$ to yield $u_\text{s}(\stringx,t) \approx u_{l,\text{s}}^n$.
+where grid function $\ugen^n_{\boldsymbol{l}}$ is a discrete approximation to $\ugen({\boldsymbol{x}},t)$ at $t=nk$ with time step $k$ (s), time index\SBcomment[Can you use "time index" in place of "sample" everywhere? Otherwise people get confused and think we're sampling something.] \SWcomment[Also above? ``..grid points in space and time indices in time." or something?] $n\geq 0$ and grid location $\boldsymbol{l}$ that depends on domain $\mathcal{D}$ of the system at hand. In the case of the string, we use $\stringx=lh_\text{s}$ with grid spacing $h_\text{s}$ (m), $\boldsymbol{l} = l \in [0,\hdots, N]$ and total number of grid points $N=L/h_\text{s}$ to yield $\us(\stringx,t) \approx \us_l^n$.
 % 
-% As the bridge is point-like, a definition of $\boldsymbol{l}$ is unnecessary and $u_\text{m}(t) \approx u_\text{m}^n$.\SBcomment[Can omit this] 
+% As the bridge is point-like, a definition of $\boldsymbol{l}$ is unnecessary and $\um(t) \approx \um^n$.\SBcomment[Can omit this] 
 
-In the case of the body, we use $x=lh_\text{p}$ and $y=mh_\text{p}$ to get $u_\text{p}(x, y, t) \approx u_{(l,m),\text{p}}^n$ where $\boldsymbol{l} = (l,m)$ with $l\in[0,\hdots,N_x]$ and $m\in[0,\hdots,N_y]$. Here, $N_x = L_x / h_\text{p} + 1$ and $N_y = L_y / h_\text{p} + 1$ are the horizontal and vertical number of grid points respectively with grid spacing $h_\text{p}$ (m).
+In the case of the body, we use $x=lh_\text{p}$ and $y=mh_\text{p}$ to get $\up(x, y, t) \approx \up_{(l,m)}^n$ where $\boldsymbol{l} = (l,m)$ with $l\in[0,\hdots,N_x]$ and $m\in[0,\hdots,N_y]$. \SBcomment[OK, notation getting pretty messy here. Why not just use $w$ for the plate, and $u$ for the string or something?] \SWcomment[Hmm.. should I also do that in the previous section? Then \eqref{eq:PDEform} would make less sense I guess. For the plate for example, should I then say (right above Eq. \eqref{eq:laplacian}: .. and state variable $u = w(x,y,t)$? I suppose that could work..]\SBcomment[Well, you don;t need to use $u$ in Eq. 1. Why not reserve $u$ for the string, $w$ for the plate, and use some other neutral dummy variable for Eq. 1. Like, say, $q$. It's not perfect, but it's better than using all the subscripts I think.] Here, $N_x = L_x / h_\text{p}$ and $N_y = L_y / h_\text{p}$ are the horizontal and vertical number of grid points respectively with grid spacing $h_\text{p}$ (m).
 
 %  = \boldsymbol{l}h$ with grid spacing $h$ and $\boldsymbol{l}$ describes the coordinates of the points in an isolated system (string, mass or plate) and
  
@@ -401,13 +407,14 @@ with stiffness coefficient $\kappa_\text{p} = \sqrt{D/\rho_\text{p}H}$. The clos
 
 The bowing term in Equation \eqref{eq:bowedString} is discretised as follows
 \begin{equation}
-    \ell_\text{s}u^n_{l,\text{s}} = -J_3(\stringx_\text{b})F_\text{b}^n\phi(v_\text{rel}^n)
+    \ell_\text{s}\us^n_l = -J_3(\stringx_\text{b})F_\text{b}^n\phi(v_\text{rel}^n)
 \end{equation}
 where, using the centered difference operator presented below in Equation \eqref{eq:discTimeOperators},
 \begin{equation}
-    v_\text{rel}^n = \delta_{t\cdot}u_{l_\text{b},\text{s}}^n-v_\text{b}^n,
+    v_\text{rel}^n = \delta_{t\cdot}\us_{l_\text{b}}^n-v_\text{b}^n,
 \end{equation}
 where coordinate $l_\text{b} = \stringx_\text{b}/h_\text{s}$which needs to be calculated using iterative methods.
+\SBcomment[OK, this part above is really difficult to deal with...because the operators haven't been defined yet]
 
 \subsection{Collisions using Non-Iterative Methods}
 Before going into the discretisation of the collision and connection terms in the system described in \eqref{eq:fullSystem}, some finite difference operators are introduced.
@@ -444,7 +451,7 @@ where $\psi$ at interleaved grid point $n-1/2$ is defined as
 \end{equation}
 For a system that has a single (upward) collision we get
 \begin{equation}\label{eq:dummySystem}
-    \ell u^n_{\boldsymbol{l}} = J(\boldsymbol{x}_\text{c})\left(\mu_{t+}\psi^{n-1/2}\right)\frac{\delta_{t+}\psi^{n-1/2}}{\delta_{t\cdot}\eta^n},
+    \ell \ugen^n_{\boldsymbol{l}} = J(\boldsymbol{x}_\text{c})\left(\mu_{t+}\psi^{n-1/2}\right)\frac{\delta_{t+}\psi^{n-1/2}}{\delta_{t\cdot}\eta^n},
 \end{equation}
 where $J(\boldsymbol{x}_\text{c})$ is a spreading operator applying the collision force to coordinate $\boldsymbol{x}_\text{c}$, which, in the simplest case, is defined as \cite{bilbao2009numerical}
 \begin{equation}
@@ -470,7 +477,7 @@ which can be rewritten to
 \end{equation}
 Then, inserting \eqref{eq:gnRewritten} into \eqref{eq:identity} and this together with \eqref{eq:gn} into \eqref{eq:dummySystem} we get
 \begin{equation}\label{eq:inserted}
-    \ell u^n_{\boldsymbol{l}} = J(\boldsymbol{x}_\text{c})\left(\frac{k}{2}g^n\delta_{t\cdot}\eta^n-\psi^{n-1/2}\right)g^n
+    \ell \ugen^n_{\boldsymbol{l}} = J(\boldsymbol{x}_\text{c})\left(\frac{k}{2}g^n\delta_{t\cdot}\eta^n-\psi^{n-1/2}\right)g^n
 \end{equation}
 where $g^n$ may be explicitly calculated using the analytic expressions for $\psi$ and $\phi$ \cite{Ducceschi2019}:
 \begin{equation}\label{eq:analytic}
@@ -486,52 +493,52 @@ and $g_\text{mp}^n$ using \eqref{eq:potential}
 \end{equation} 
 Lastly, introducing for brevity,
 \begin{equation}\label{eq:qn}
-    q^n  = \frac{k}{2}g^n\delta_{t\cdot}\eta^n-\psi^{n-1/2},
+    \xi^n  = \frac{k}{2}g^n\delta_{t\cdot}\eta^n-\psi^{n-1/2},
 \end{equation}
 the discrete counterpart of the complete system described in \eqref{eq:fullSystem} will be
 \begin{subnumcases}{\label{eq:fullSystemDisc}}
     % \begin{aligned}
-        \ell_\text{s}u_{l,\text{s}}^n &$=-J_3(\stringx_\text{b}^n)F_\text{b}\Phi(v_\text{rel}^n)+J(\stringx_\text{sm})q_\text{sm}^ng_\text{sm}^n,\qquad\ \ \;$\label{eq:stringDisc}\\
-        \ell_\text{m}u_\text{m}^n &$= -q_\text{sm}^ng_\text{sm}^n+q_\text{mp}^ng_\text{mp}^n,$\label{eq:massDisc}\\
-        \ell_\text{p}u_{(l,m),\text{p}}^n\hspace{-3.0cm} &$= -J(x_\text{mp}, y_\text{mp})q_\text{mp}^ng_\text{mp}^n,$\qquad\label{eq:plateDisc}\\
-        \eta_\text{sm}^n &$= u_\text{m}^n - u^n_{l_\text{sm},\text{s}},$\label{eq:etaSMDisc}\\
-        \eta_\text{mp}^n &$=  u_{(l_\text{mp}, m_\text{mp}), \text{p}}^n - u_\text{m}^n,$\label{eq:etaMPDisc}
+        \ell_\text{s}\us_l^n &$=-J_3(\stringx_\text{b}^n)F_\text{b}\Phi(v_\text{rel}^n)+J(\stringx_\text{sm})\xi_\text{sm}^ng_\text{sm}^n,\qquad\ \ \;$\label{eq:stringDisc}\\
+        \ell_\text{m}\um^n &$= -\xi_\text{sm}^ng_\text{sm}^n+\xi_\text{mp}^ng_\text{mp}^n,$\label{eq:massDisc}\\
+        \ell_\text{p}\up_{(l,m)}^n\hspace{-3.0cm} &$= -J(x_\text{mp}, y_\text{mp})\xi_\text{mp}^ng_\text{mp}^n,$\qquad\label{eq:plateDisc}\\
+        \eta_\text{sm}^n &$= \um^n - \us^n_{l_\text{sm}},$\label{eq:etaSMDisc}\\
+        \eta_\text{mp}^n &$=  \up_{(l_\text{mp}, m_\text{mp})}^n - \um^n,$\label{eq:etaMPDisc}
     % \end{aligned}
 \end{subnumcases}
 % \begin{subnumcases}{\label{eq:fullSystemDisc}}
 %     % \begin{aligned}
-%         \ell_\text{s}u_{l,\text{s}}^n &$=-J(\stringx_\text{b}^n)F_\text{b}\Phi(v_\text{rel}^n)$\label{eq:stringPotential}\\
+%         \ell_\text{s}u_{l}^n &$=-J(\stringx_\text{b}^n)F_\text{b}\Phi(v_\text{rel}^n)$\label{eq:stringPotential}\\
 %         & $\quad\ \,\!\!+\  J(\stringx_\text{sm})\left(\frac{k}{2}\delta_{t\cdot}\eta_\text{sm}^n-\psi_\text{sm}^{n-1/2}\right)g_\text{sm}^n,$\nonumber\\
-%         \ell_\text{m}u_\text{m}^n &$= -\left(\frac{k}{2}\delta_{t\cdot}\eta_\text{sm}^n-\psi_\text{sm}^{n-1/2}\right)g_\text{sm}^n$\\
+%         \ell_\text{m}\um^n &$= -\left(\frac{k}{2}\delta_{t\cdot}\eta_\text{sm}^n-\psi_\text{sm}^{n-1/2}\right)g_\text{sm}^n$\\
 %         &$\quad\ \,\!\!+\left(\frac{k}{2}\delta_{t\cdot}\eta_\text{mp}^n-\psi_\text{mp}^{n-1/2}\right)g_\text{mp}^n,$\label{eq:massPotential}\\
-%         \ell_\text{p}u_{(l,m),\text{p}}^n\hspace{-3.0cm} &$= -J(x_\text{mp}, y_\text{mp})$\\
+%         \ell_\text{p}\up_{(l,m)}^n\hspace{-3.0cm} &$= -J(x_\text{mp}, y_\text{mp})$\\
 %         &$\quad\ \,\!\!\cdot\left(\frac{k}{2}\delta_{t\cdot}\eta_\text{mp}^n-\psi_\text{mp}^{n-1/2}\right)g_\text{mp}^n,$\qquad\label{eq:platePotential}\\
-%         \eta_\text{sm}^n &$= u_\text{m}^n - u^n_{l_\text{sm},\text{s}},$\\
-%         \eta_\text{mp}^n &$=  u_{(x_\text{mp}, y_\text{mp}), \text{p}}^n - u_\text{m}^n,$
+%         \eta_\text{sm}^n &$= \um^n - \us^n_{l_\text{sm}},$\\
+%         \eta_\text{mp}^n &$=  \up_{(x_\text{mp}, y_\text{mp})}^n - \um^n,$
 %     % \end{aligned}
 % \end{subnumcases}
 \\
-where $g^n_\text{sm}$ and $g^n_\text{mp}$ can be explicitly computed according to Equation \eqref{eq:analytic}. Also, discrete counterparts of connection and collision locations in Equations \eqref{eq:etaSMDisc} and \eqref{eq:etaMPDisc} are described as $l_\text{sm} = \stringx_\text{sm}/h_\text{s}$ and $(l_\text{mp}, m_\text{mp}) = (x_\text{mp}/h_\text{p}, y_\text{mp}/h_\text{p})$. Furthermore, the spreading operator for the bow $J_3$ uses cubic interpolation for finer control \cite{bilbao2009numerical}. This leaves us with two different types of update equations, one where $u^{n+1}_{\boldsymbol{l}}$ is calculated and one where $\psi^{n+1/2}$ is calculated.
+where $g^n_\text{sm}$ and $g^n_\text{mp}$ can be explicitly computed according to Equation \eqref{eq:analytic}. Also, discrete counterparts of connection and collision locations in Equations \eqref{eq:etaSMDisc} and \eqref{eq:etaMPDisc} are described as $l_\text{sm} = \stringx_\text{sm}/h_\text{s}$ and $(l_\text{mp}, m_\text{mp}) = (x_\text{mp}/h_\text{p}, y_\text{mp}/h_\text{p})$. Furthermore, the spreading operator for the bow $J_3$ uses cubic interpolation for finer control \cite{bilbao2009numerical}. This leaves us with two different types of update equations, one where $\ugen^{n+1}_{\boldsymbol{l}}$ is calculated and one where $\psi^{n+1/2}$ is calculated.
 
-One might think that due to the centered differences $\delta_{t\cdot}\eta^n$ still present in Equation \eqref{eq:qn}, our system remains implicit, but as we can insert the definitions for Equations \eqref{eq:etaSMDisc} and \eqref{eq:etaMPDisc} evaluated at the next sample $n+1$ which are already present in $\ell u$, the Equations in \eqref{eq:fullSystemDisc} reduce to a system of linear equations that can be solved by a single division. \SWcomment[Does this make sense? I thought to add this paragraph to emphasise that the system is now actually explicit.]
+One might think that due to the centered differences $\delta_{t\cdot}\eta^n$ still present in Equation \eqref{eq:qn}, our system remains implicit, but as we can insert the definitions for Equations \eqref{eq:etaSMDisc} and \eqref{eq:etaMPDisc} evaluated at the next time index $n+1$ which are already present in $\ell_\text{s}\us_l^n$, $\ell_\text{m}\um^n$ and $\ell_\text{p}\up_{(l,m)}^n$ the Equations in \eqref{eq:fullSystemDisc} reduce to a system of linear equations that can be solved by a single division. \SWcomment[Does this make sense? I thought to add this paragraph to emphasise that the system is now actually explicit.]
 
 \section{Implementation}\label{sec:implementation}
 The real-time implementation of the system has been done in C++ using the JUCE framework \cite{JUCE2020} and will be controlled using the Sensel Morph (or simply Sensel) -- an expressive touch controller. This section will first elaborate some important considerations regarding the setup of the system. Then, the algorithm, together with the parameter design will be presented.  Finally, the graphical user interface (GUI) will be detailed together with the Sensel and its mapping to the application.
 
 \subsection{Introducing an Offset}
-Firstly, for more realistic and expressive sounds, we model the bridge -- and with that, the string -- to rest slightly above the body. Expanding $\ell_\text{m}u_\text{m}$ in \eqref{eq:massDisc} and including the offset yields
+Firstly, for more realistic and expressive sounds, we model the bridge -- and with that, the string -- to rest slightly above the body. Expanding $\ell_\text{m}\um$ in \eqref{eq:massDisc} and including the offset yields
 \begin{equation}\label{eq:offset}
-    \ell_\text{m}u_\text{m}^n = M\delta_{tt}u_\text{m}^n+M\omega_0^2(u^n-u_\text{off})+MR\delta_{t\cdot}u_\text{m}^n
+    \ell_\text{m}\um^n = M\delta_{tt}\um^n+M\omega_0^2(\um^n-\um_\text{off})+MR\delta_{t\cdot}\um^n
 \end{equation}
-where $u_\text{off} \geq 0$ is a predefined offset between the body and the bridge. Furthermore, the second-order time derivative can be defined from the definitions in \eqref{eq:discTimeOperators} as
+where $\um_\text{off} \geq 0$ is a predefined offset between the body and the bridge. Furthermore, the second-order time derivative can be defined from the definitions in \eqref{eq:discTimeOperators} as
 \begin{equation}
     \delta_{tt} = \delta_{t+}\delta_{t-}\ .
 \end{equation}
-The boundary condition of the string will also change to:
-\begin{equation}
-    u_\text{s} = u_\text{off}\quad \text{and} \quad \partial_x^2u_\text{s}=0.
+The boundary condition of the string will also change depending on the bridge offset:
+\begin{equation}\label{eq:newBoundary}
+    \us = \um_\text{off}\quad \text{and} \quad \partial_x^2\us=0.
 \end{equation}
-A schematic plot of the full system, including the offset described above (Equation \eqref{eq:offset}) can be found in Figure \ref{fig:trombaSystem}.
+A schematic plot of the full system, including the offset described in Equations \eqref{eq:offset} and \eqref{eq:newBoundary} can be found in Figure \ref{fig:trombaSystem}.
 \begin{figure}[h]
   \centering
   \includegraphics[width=1.0\columnwidth]{trombaSystem.eps}
@@ -540,12 +547,12 @@ A schematic plot of the full system, including the offset described above (Equat
 \end{figure}
 
 \subsection{Pitch Control}
-Secondly, as briefly mentioned in Section \ref{sec:introduction}, the way different pitches are played on the tromba marina, is to slightly rest a knuckle or finger on nodal points along the string to induce harmonics. Thus, a damping finger is implemented. Using the cubic interpolation operator $I_3$ \cite{bilbao2009numerical}, the FDS for the string in \eqref{eq:stringDisc} can be extended to
+Secondly, as briefly mentioned in Section \ref{sec:introduction}, the way different pitches are played on the tromba marina, is to slightly rest a knuckle or finger on nodal points along the string to induce harmonics. Thus, a damping finger is implemented. Using the cubic interpolation operator $I_3$ \cite{bilbao2009numerical}, Equation \eqref{eq:stringDisc} can be extended to
 \begin{gather}\label{eq:dampingFinger}
-    \ell_\text{s} u_{l,\text{s}}^n = \hdots - J_3(\stringx_\text{f})I_3(\stringx_\text{f})\sigma_\text{f}(u^n_l-u_\text{off}),\\
+    \ell_\text{s} \us_l^n = \hdots - J_3(\stringx_\text{f})I_3(\stringx_\text{f})\sigma_\text{f}(\us^n_l-\um_\text{off}),\\
    \text{where} \quad 0\leq \sigma_\text{f} \leq 1,\nonumber
 \end{gather}
-which essentially subtracts its own state at location $\stringx_\text{f} \in [0,0.5\stringx_\text{sm}]$ according to the damping coefficient $\sigma_\text{f}$ (kg$ \cdot$ s$^{-2}$) applied. As done in \cite{Willemsen2019a:SMC2020}, the fractional part used in the spreading operator ($\alpha_\text{i} = \stringx_\text{f}/h - \text{floor}(\stringx_\text{f}/h)$) is raised to the 7th power as it has been empirically found to scale finger position to pitch more properly in the context of FDSs. As the string is bowed above the damping finger (at the other side of the rattling bridge) it is essential that the energy from the bow reaches the rattling bridge, which is still the case for lower values of $\sigma_\text{f}$. A more realistic approach that could be investigated is to model the finger as a mass colliding with the string, rather than imposing the damping directly to the state of the string as presented here.
+which essentially subtracts its own state at location $\stringx_\text{f} \in [0,0.5\stringx_\text{sm}]$ according to the damping coefficient $\sigma_\text{f}$ (kg$ \cdot$ s$^{-2}$) applied. As done in \cite{Willemsen2019a:SMC2020}, the fractional part used in the spreading operator ($\alpha_\text{i} = \stringx_\text{f}/h - \text{floor}(\stringx_\text{f}/h)$) is raised to the 7th power as it has been empirically found to scale finger position to pitch more properly in the context of FDTD. As the string is bowed above the damping finger (at the other side of the rattling bridge) it is essential that the energy from the bow reaches the rattling bridge, which is still the case for lower values of $\sigma_\text{f}$. A more realistic approach that could be investigated is to model the finger as a mass colliding with the string, rather than imposing the damping directly to the state of the string as presented here.
 
 \subsection{Other Considerations}
 Realistic initialisation of both $\eta_\text{sm}$ and $\eta_\text{mp}$ is essential. In this case (at $n=0$) $\eta_\text{sm}^0 = 0$ and $\eta_\text{mp}^0 \leq 0$ so that no collision is present at initialisation.% If this is not done, the value for the potential at the previous time step $\psi^{n-1/2}$ would need to have a value, but doesn't. 
@@ -580,17 +587,17 @@ The order of calculation is shown in the pseudocode in Algorithm \ref{alg:calcOr
 \vspace{-0.2cm}(Eqs. (\ref{eq:stringDisc}-c))\\
 \vspace{-0.2cm}\\
 \\
-\vspace{-0.2cm}$\boldsymbol{u}^{n-1} = \boldsymbol{u}^n$\\
-\vspace{-0.2cm}$\boldsymbol{u}^{n} = \boldsymbol{u}^{n+1}$\\
+\vspace{-0.2cm}$\boldsymbol{\ugen}^{n-1} = \boldsymbol{\ugen}^n$\\
+\vspace{-0.2cm}$\boldsymbol{\ugen}^{n} = \boldsymbol{\ugen}^{n+1}$\\
 $\boldsymbol{\psi}^{n-1/2} = \boldsymbol{\psi}^{n+1/2}$
 \end{minipage}}
  }}
  \vspace{0.2cm}
- \caption{Pseudocode showing the order of calculation after initialisation. Bold symbols denote the collection of states of the entire system ($\boldsymbol{u}$) and potentials ($\boldsymbol{\psi}$). \label{alg:calcOrder}}
+ \caption{Pseudocode showing the order of calculation after initialisation. Bold symbols denote the collection of states of the entire system ($\boldsymbol{\ugen}$) and potentials ($\boldsymbol{\psi}$). \label{alg:calcOrder}}
 \end{algorithm}
 
 \subsection{Parameter design}
-The list of parameters used in the implementation can be found in Table \ref{tab:parameters}. As the authors had a real (recreated) tromba marina (presented in \cite{Baldwin2016:SMC2020}) at their disposal, some parameters have been measured in accordance to the real instrument. The others have been emperically tuned.
+The list of parameters used in the implementation can be found in Table \ref{tab:parameters}. As the authors had a real (recreated) tromba marina (presented in \cite{Baldwin2016:SMC2020}) at their disposal, some parameters have been measured in accordance to the real instrument. The others have been empirically tuned.
 
 Regarding the output of the system, through empirical testing it was decided to retrieve the output from the state of the plate right at the point of collision $(l_\text{mp},m_\text{mp})$ combined with the sound of the string at a lower volume. It can be argued that the loudest sound comes from the collision between the bridge and the body making it logical to select this point as the main sound source. 
 
@@ -633,11 +640,11 @@ Regarding the output of the system, through empirical testing it was decided to 
     Bridge location & $\stringx_\text{sm}$ (m)& $1.65$*\\
     \hline
     \multicolumn{3}{|l|}{\bf Bridge-body collision}\\\hline
-    Stiffness Coefficient & $K_\text{mp}$ (N/m) & $5\cdot10^{8}$\\
+    Stiffness Coefficient & $K_\text{mp}$ (N/m) & $5\cdot10^{10}$\\
     Nonlin. col. coeff. &$\alpha_\text{mp}$ (-) & 1\\
     Bridge location & ($x_\text{mp},y_\text{mp}$) (m,m)& $(1.08,0.135)$*\\\hline
     \multicolumn{3}{|l|}{\bf Other}\\\hline
-    Offset & $u_\text{off}$ (m) & $5\cdot 10^{-6}$\\
+    Offset & $\um_\text{off}$ (m) & $5\cdot 10^{-6}$\\
     Damp. finger coeff. &$\sigma_\text{f}$ (kg$\cdot$s$^{-2}$)&$0\leq \sigma_\text{f} \leq 1$\\
     \hline
 \end{tabular}
@@ -648,15 +655,15 @@ Regarding the output of the system, through empirical testing it was decided to 
 \subsection{Graphical User Interface}\label{sec:GUI}
 A screenshot of the GUI is shown in Figure \ref{fig:GUI}. The GUI is divided in four sections, three showing the states of the string, bridge and body respectively and one control section. 
 
- Firstly, the string section shows the state of the string $u_{l,\text{s}}^n$ as a cyan-coloured path and the bow as a yellow rectangle with bow position $\stringx_\text{b}$ and its opacity depending on the bow force $F_\text{b}$. Furthermore, the bridge state $u_\text{m}^n$ is shown as a green circle at location (of the bridge along the string) $\stringx_\text{sm}$. Finally, the position of the damping finger $\stringx_\text{f}$ is displayed as a yellow circle, the size of which depends on damping coefficient $\sigma_\text{f}$. The position of the finger triggers lines showing the locations of the closest nodes along the string according to the following equation
+Firstly, the string section shows the state of the string $\us_l^n$ as a cyan-coloured path and the bow as a yellow rectangle with bow position $\stringx_\text{b}$ and its opacity depending on the bow force $F_\text{b}$. Furthermore, the bridge state $\um^n$ is shown as a green circle at location (of the bridge along the string) $\stringx_\text{sm}$. Finally, the position of the damping finger $\stringx_\text{f}$ is displayed as a yellow circle, the size of which depends on damping coefficient $\sigma_\text{f}$. The position of the finger triggers lines showing the locations of the closest nodes along the string according to the following equation
 \begin{equation}\label{eq:node}
     \stringx_\text{node}^i = \frac{i\cdot \stringx_\text{sm}}{n}\quad \text{for} \quad i = [1,\hdots,n-1],
 \end{equation}
 where $n = \text{round} (\stringx_\text{sm}/\stringx_\text{f})$ is an integer closest to the ratio between the string length until the bridge location and the damping finger position. These lines are drawn is to help the user place the damping finger at nodes along the string.
 
-Secondly, the bridge section shows the displacement of the bridge $u_\text{m}^n$ as a green circle, the state of the body at the collision location $u_{(l_\text{sm},m_\text{sm}),\text{p}}^n$, both moving vertically according to their respective displacements and finally, a grey horizontal line denoting the offset $u_\text{off}$, i.e., the resting position of the bridge.
+Secondly, the bridge section shows the displacement of the bridge $\um^n$ as a green circle, the state of the body at the collision location $\up_{(l_\text{sm},m_\text{sm})}^n$, both moving vertically according to their respective displacements and finally, a static grey horizontal line denoting the offset $\um_\text{off}$, i.e., the resting position of the bridge.
 
-Thirdly, the body section shows the state of the body $u_{(l,m),\text{p}}^n$ as a grid of rectangles changing (grey-scale) colour according to their displacement.
+Thirdly, the body section shows the state of the body $\up_{(l,m)}^n$ as a grid of rectangles changing (grey-scale) colour according to their displacement.
 
 Finally, the control section contains three sliders that control the levels of the string (s), bridge (m) and body (p) respectively and a reset button to re-initialise the system. 
 \begin{figure}[h]
@@ -686,12 +693,14 @@ Disabling the graphics of the application, its CPU usage is 68.9\% on a MacBook 
 Through using the application, we found some odd behaviour, where the bridge `gets stuck' behind the plate, i.e., values for $\psi_\text{mp}$ would be negative for a short period of time (one to several samples). The explicit technique used in this work allows for this to happen (and can be proven to still be stable in this case \cite{Ducceschi2019}), but it is ``unphysical" to have a negative potential as this implies a ``pulling" collision. As can be seen from Table \ref{tab:parameters}, the nonlinear collision coefficients $\alpha_\text{sm}$ and $\alpha_\text{mp}$ are set to $1$. When increasing these values, this behaviour would arise much more often, and even occur for a prolonged period of time (several seconds to indefinitely). This is also the reason why the reset button presented in Section \ref{sec:GUI} has been implemented%, to undo this negative potential
 . Further investigation will be necessary to figure out a way to prevent this behaviour.
 
-Lastly, it has been found that when $|u_{\text{p}}^n| \lessapprox 10^{-306}$ for any coordinate $(l,m)$ (which happens when the body has been still for a prolonged period of time), the CPU usage increases considerably. This could be explained by the fact that calculations with values close to the smallest value that the computer can describe, are handled differently by the application. This is solved by implementing a limit to how small a value for $u_\text{p}^n$ can be. If the value of $u_{(l_\text{sm},m_\text{sm}),\text{p}}^n$ is lower than this limit, the total plate state is set to $0$.
+Lastly, it has been found that when $|\up_{(l,m)}^n| \lessapprox 10^{-306}$ for any coordinate $(l,m)$ (which happens when the body has not been collided with for a prolonged period of time), the CPU usage increases considerably. This could be explained by the fact that calculations with values close to the smallest value that the computer can describe, are handled differently by the application. \SWcomment[Maybe we should ask Craig about this..] This is solved by implementing a limit to how small a value for $\up_{(l,m)}^n$ can be. If the value of $\up_{(l_\text{sm},m_\text{sm})}^n$ is lower than this limit, the total plate state is set to $0$.
 
 \section{Conclusion and Future Work}\label{sec:conclusion}
 In this paper, a real-time implementation of a simulation of the tromba marina has been presented. The output sound has been found natural and brass-like by the authors and exhibited similar qualities when compared to a recreated tromba marina.
 
-Future work includes a comparison between the non-iterative methods used in this paper and iterative methods (such as and Newton-Raphson) both regarding algorithm speed and sound quality. Lastly, for a more physical implementation of the damping finger, it would be good to model it as another mass colliding with the string rather than directly imposing damping onto the string state.
+Future work includes a comparison between the non-iterative methods used in this paper and iterative methods (such as and Newton-Raphson) both regarding algorithm speed and sound quality. 
+
+Lastly, for a more physical implementation of the damping finger, it would be good to model it as another mass colliding with the string rather than directly imposing damping onto the string state.
 
 \begin{acknowledgments}
 This work is supported by NordForsk's Nordic
