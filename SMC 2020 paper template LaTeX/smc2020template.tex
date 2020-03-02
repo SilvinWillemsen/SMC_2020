@@ -381,44 +381,9 @@ where $\stringx_\text{sm} \in \mathcal{D}_\text{s}$ is the location of the bridg
 % \SBcomment[OK, here I would use a different coordinate $\eta$ or something for the spatial coordinate along the string, which is not the same as $x$ for the plate...this needs to be changed in the earlier sections as well. ] \SWcomment[Could I use something that looks more like an `x' (such as $\text{\it x}$)?]{} \SBcomment[It would be good to pick something without a subscript if possible. Maybe $\xi$ for the string?] \SWcomment[I'm not sure what you mean with ``without a subscript".. Do you mean regular character? $\text{\it x}$ is without a subscript at this point and a different symbol than $x$. If you think they look too much alike, I could use $\xi$, but I feel that using anything different than an $x$-like symbol for space would be counterintuitive (for me and also perhaps the reader)]\SBcomment[OK, but the difference between $x$ and $\text{\it x}$ is going to be even more confusing I think...] \SWcomment[Michele proposed $\chi$ earlier. Maybe I'll do that instead.. or $X$?]{}\SBcomment[$\chi$ is a good choice...]
 
 \section{Discretisation}\label{sec:disc}
-System \eqref{eq:fullSystem} is discretised using FDTD methods. These methods subdivide the continuous system in grid points in space and samples in time. To approximate the state of a system in isolation we use
-\begin{equation}\label{eq:generalDisc}
-    \ugen(\boldsymbol{x},t) \approx \ugen^n_{\boldsymbol{l}}, 
-\end{equation} 
-where grid function $\ugen^n_{\boldsymbol{l}}$ is a discrete approximation to $\ugen({\boldsymbol{x}},t)$ at $t=nk$ with time step $k$ (s), time index\SBcomment[Can you use "time index" in place of "sample" everywhere? Otherwise people get confused and think we're sampling something.] \SWcomment[Also above? ``..grid points in space and time indices in time." or something?] $n\geq 0$ and grid location $\boldsymbol{l}$ that depends on domain $\mathcal{D}$ of the system at hand. In the case of the string, we use $\stringx=lh_\text{s}$ with grid spacing $h_\text{s}$ (m), $\boldsymbol{l} = l \in [0,\hdots, N]$ and total number of grid points $N=L/h_\text{s}$ to yield $\us(\stringx,t) \approx \us_l^n$.
-% 
-% As the bridge is point-like, a definition of $\boldsymbol{l}$ is unnecessary and $\um(t) \approx \um^n$.\SBcomment[Can omit this] 
+System \eqref{eq:fullSystem} is discretised using FDTD methods. These methods subdivide the continuous system in grid points in space and samples \SWcomment[or indices?] in time. Before going into the discretisation of the models, and collision and connection terms in the system described in \eqref{eq:fullSystem}, some finite difference operators are introduced.
 
-In the case of the body, we use $x=lh_\text{p}$ and $y=mh_\text{p}$ to get $\up(x, y, t) \approx \up_{(l,m)}^n$ where $\boldsymbol{l} = (l,m)$ with $l\in[0,\hdots,N_x]$ and $m\in[0,\hdots,N_y]$. \SBcomment[OK, notation getting pretty messy here. Why not just use $w$ for the plate, and $u$ for the string or something?] \SWcomment[Hmm.. should I also do that in the previous section? Then \eqref{eq:PDEform} would make less sense I guess. For the plate for example, should I then say (right above Eq. \eqref{eq:laplacian}: .. and state variable $u = w(x,y,t)$? I suppose that could work..]\SBcomment[Well, you don;t need to use $u$ in Eq. 1. Why not reserve $u$ for the string, $w$ for the plate, and use some other neutral dummy variable for Eq. 1. Like, say, $q$. It's not perfect, but it's better than using all the subscripts I think.] Here, $N_x = L_x / h_\text{p}$ and $N_y = L_y / h_\text{p}$ are the horizontal and vertical number of grid points respectively with grid spacing $h_\text{p}$ (m).
-
-%  = \boldsymbol{l}h$ with grid spacing $h$ and $\boldsymbol{l}$ describes the coordinates of the points in an isolated system (string, mass or plate) and
- 
-The discretisation of and expansion of operator $\mathcal{L}\approx \ell$ in the case of stiff strings, mass-spring systems and plates using FDTD methods are well covered in the literature \cite{bilbao2009numerical} and will not be described in detail in this paper. To obtain the highest accuracy possible while keeping the system explicit (except for the bow), centered differences have been chosen where possible (introduced in Equation \eqref{eq:discTimeOperators}). 
-
-For stability, grid spacings $h_\text{s}$ and $h_\text{p}$ should satisfy the conditions below. In the case of the damped stiff string,
-\begin{equation}
-    h_\text{s} \geq \sqrt{\frac{c^2k^2+4\sigma_1k+\sqrt{(c^2k^2+4\sigma_1k)^2+16\kappa_\text{s}^2k^2}}{2}},
-\end{equation}
-with wave speed $c = \sqrt{T/\rho_\text{s}A}$ and stiffness coefficient $\kappa_\text{s} = \sqrt{E_\text{s}I/\rho_\text{s}H}$ and in the case of the plate,
-\begin{equation}\label{eq:gridSpacingPlate}
-    h_\text{p} \geq 2\sqrt{k\left(\sigma_1 + \sqrt{\kappa_\text{P}^2 + \sigma_1^2}\right)}\ ,
-\end{equation}
-with stiffness coefficient $\kappa_\text{p} = \sqrt{D/\rho_\text{p}H}$. The closer the grid spacings are to these conditions, the higher the accuracy of the approximation. 
-
-The bowing term in Equation \eqref{eq:bowedString} is discretised as follows
-\begin{equation}
-    \ell_\text{s}\us^n_l = -J_3(\stringx_\text{b})F_\text{b}^n\phi(v_\text{rel}^n)
-\end{equation}
-where, using the centered difference operator presented below in Equation \eqref{eq:discTimeOperators},
-\begin{equation}
-    v_\text{rel}^n = \delta_{t\cdot}\us_{l_\text{b}}^n-v_\text{b}^n,
-\end{equation}
-where coordinate $l_\text{b} = \stringx_\text{b}/h_\text{s}$which needs to be calculated using iterative methods.
-\SBcomment[OK, this part above is really difficult to deal with...because the operators haven't been defined yet]
-
-\subsection{Collisions using Non-Iterative Methods}
-Before going into the discretisation of the collision and connection terms in the system described in \eqref{eq:fullSystem}, some finite difference operators are introduced.
-\subsubsection{Operators}
+\subsection{Operators}
 The identity and temporal shift operators are defined as
 \begin{equation}
     1\eta^n = \eta^n, \quad e_{t+}\eta^n = \eta^{n+1}, \quad e_{t-}\eta^n = \eta^{n-1}.
@@ -437,7 +402,43 @@ and are all approximations to a first-order time derivative. Furthermore, forwar
 \end{equation}
 and can be used to describe interleaved grid points $n+1/2$ and $n-1/2$.
 
-\subsubsection{Explicit Collisions}
+\subsection{Discrete models}
+To approximate the state of a system in isolation we use
+\begin{equation}\label{eq:generalDisc}
+    \ugen(\boldsymbol{x},t) \approx \ugen^n_{\boldsymbol{l}}, 
+\end{equation} 
+where grid function $\ugen^n_{\boldsymbol{l}}$ is a discrete approximation to $\ugen({\boldsymbol{x}},t)$ at $t=nk$ with time step $k$ (s), time index $n\geq 0$ and grid location $\boldsymbol{l}$ that depends on domain $\mathcal{D}$ of the system at hand. In the case of the string, we use $\stringx=lh_\text{s}$ with grid spacing $h_\text{s}$ (m), $\boldsymbol{l} = l \in [0,\hdots, N]$ and total number of grid points $N=L/h_\text{s}$ to yield $\us(\stringx,t) \approx \us_l^n$.
+% 
+% As the bridge is point-like, a definition of $\boldsymbol{l}$ is unnecessary and $\um(t) \approx \um^n$.\SBcomment[Can omit this] 
+
+In the case of the body, we use $x=lh_\text{p}$ and $y=mh_\text{p}$ to get $\up(x, y, t) \approx \up_{(l,m)}^n$ where $\boldsymbol{l} = (l,m)$ with $l\in[0,\hdots,N_x]$ and $m\in[0,\hdots,N_y]$. Here, $N_x = L_x / h_\text{p}$ and $N_y = L_y / h_\text{p}$ are the horizontal and vertical number of grid points respectively with grid spacing $h_\text{p}$ (m).
+
+%  = \boldsymbol{l}h$ with grid spacing $h$ and $\boldsymbol{l}$ describes the coordinates of the points in an isolated system (string, mass or plate) and
+ 
+The discretisation of and expansion of operator $\mathcal{L}\approx \ell$ in the case of stiff strings, mass-spring systems and plates using FDTD methods are well covered in the literature \cite{bilbao2009numerical} and will not be described in detail in this paper. To obtain the highest accuracy possible while keeping the system explicit (except for the bow), centered differences have been chosen where possible (see Equation \eqref{eq:discTimeOperators}). 
+
+For stability, grid spacings $h_\text{s}$ and $h_\text{p}$ should satisfy the conditions below. In the case of the damped stiff string,
+\begin{equation}
+    h_\text{s} \geq \sqrt{\frac{c^2k^2+4\sigma_1k+\sqrt{(c^2k^2+4\sigma_1k)^2+16\kappa_\text{s}^2k^2}}{2}},
+\end{equation}
+with wave speed $c = \sqrt{T/\rho_\text{s}A}$ and stiffness coefficient $\kappa_\text{s} = \sqrt{E_\text{s}I/\rho_\text{s}H}$ and in the case of the plate,
+\begin{equation}\label{eq:gridSpacingPlate}
+    h_\text{p} \geq 2\sqrt{k\left(\sigma_1 + \sqrt{\kappa_\text{P}^2 + \sigma_1^2}\right)}\ ,
+\end{equation}
+with stiffness coefficient $\kappa_\text{p} = \sqrt{D/\rho_\text{p}H}$. The closer the grid spacings are to these conditions, the higher the accuracy of the approximation. 
+
+The bowing term in Equation \eqref{eq:bowedString} is discretised as follows
+\begin{equation}
+    \ell_\text{s}\us^n_l = -J_3(\stringx_\text{b})F_\text{b}^n\phi(v_\text{rel}^n)
+\end{equation}
+where, using the centered difference operator from in Equation \eqref{eq:discTimeOperators},
+\begin{equation}
+    v_\text{rel}^n = \delta_{t\cdot}\us_{l_\text{b}}^n-v_\text{b}^n,
+\end{equation}
+where coordinate $l_\text{b} = \stringx_\text{b}/h_\text{s}$which needs to be calculated using iterative methods.
+
+\subsection{Collisions using Non-Iterative Methods}
+
 For the discrete-time definitions of the potential in \eqref{eq:phiToPsi} we can use 
 \begin{equation}
     \psi\approx \mu_{t+}\psi^{n-1/2}\quad \text{and} \quad \psi' \approx \frac{\delta_{t+}\psi^{n-1/2}}{\delta_{t\cdot}\eta^n},
@@ -491,10 +492,12 @@ and $g_\text{mp}^n$ using \eqref{eq:potential}
 \begin{equation}\label{eq:gnMP}
     g_\text{mp}^n =\sqrt{\frac{K_\text{mp}(\alpha_\text{mp} + 1)}{2}} [\eta_\text{mp}^n]_+^{\frac{\alpha_\text{mp} - 1}{2}}\ .
 \end{equation} 
-Lastly, introducing for brevity,
+
+\subsection{Complete Discrete System}
+Introducing for brevity,
 \begin{equation}\label{eq:qn}
     \xi^n  = \frac{k}{2}g^n\delta_{t\cdot}\eta^n-\psi^{n-1/2},
-\end{equation}
+\end{equation}=
 the discrete counterpart of the complete system described in \eqref{eq:fullSystem} will be
 \begin{subnumcases}{\label{eq:fullSystemDisc}}
     % \begin{aligned}
@@ -536,13 +539,13 @@ where $\um_\text{off} \geq 0$ is a predefined offset between the body and the br
 \end{equation}
 The boundary condition of the string will also change depending on the bridge offset:
 \begin{equation}\label{eq:newBoundary}
-    \us = \um_\text{off}\quad \text{and} \quad \partial_x^2\us=0.
+    \us = \um_\text{off}\quad \text{and} \quad \partial_\stringx^2\us=0.
 \end{equation}
 A schematic plot of the full system, including the offset described in Equations \eqref{eq:offset} and \eqref{eq:newBoundary} can be found in Figure \ref{fig:trombaSystem}.
 \begin{figure}[h]
   \centering
   \includegraphics[width=1.0\columnwidth]{trombaSystem.eps}
-  \caption{The virtual system in \eqref{eq:fullSystemDisc} including the offset in Equation \eqref{eq:offset}, with different important coordinates highlighted. Note that $\eta_\text{sm}$ (Equation \eqref{eq:etaSMDisc}) is not shown as it is close to 0 at all times. \SWcomment[Not sure whether to use $ x_\text{xx}$ or $l_\text{xx}$ in this figure.]}
+  \caption{The virtual system in \eqref{eq:fullSystemDisc} including the offset in Equation \eqref{eq:offset}, with different important coordinates highlighted. Note that $\eta_\text{sm}$ (Equation \eqref{eq:etaSMDisc}) is not shown as it is close to 0 at all times.}
   \label{fig:trombaSystem}
 \end{figure}
 
@@ -669,7 +672,8 @@ Finally, the control section contains three sliders that control the levels of t
 \begin{figure}[h]
   \centering
   \includegraphics[width=1.0\columnwidth]{applicationDescription.pdf}
-  \caption{The GUI showing the excited system with text highlighting different components. A more detailed description can be found in Section \ref{sec:GUI}. \SWcomment[Same as in Figure 3, should I use $l_\text{f}, l_\text{sm}$, etc. instead of $x_\text{f}, x_\text{sm}$, etc.?]}
+  \caption{The GUI showing the excited system with text highlighting different components. A more detailed description can be found in Section \ref{sec:GUI}. %\SWcomment[Same as in Figure 3, should I use $l_\text{f}, l_\text{sm}$, etc. instead of $x_\text{f}, x_\text{sm}$, etc.?]\SBcomment[I would just use the continuous variables for both figures...]
+  }
   \label{fig:GUI}
 \end{figure}
 
@@ -684,7 +688,7 @@ Interestingly, compared with trombone measurements from \cite[Figure 6]{Boutin20
 \begin{figure}[t]
   \centering
   \includegraphics[width=\columnwidth]{trombaWaveforms2.eps}
-  \caption{The isolated outputs of the bridge and body (at collision location $(x_\text{sm},y_\text{sm})$) with bow parameters $\stringx_\text{b} = 0.3L$, $v_\text{b} = 0.2$, $F_\text{b} = 0.1$ and damping finger position $\stringx_\text{f} = 0.5\stringx_\text{sm}$ and damping $\sigma_\text{f} = 0.1$ to induce the lowest harmonic. \SWcomment[Same as in Figure 3, should I use $(l_\text{sm}, m_\text{sm})$ instead?]}
+  \caption{The isolated outputs of the bridge and body (at collision location $(x_\text{sm},y_\text{sm})$) with bow parameters $\stringx_\text{b} = 0.3L$, $v_\text{b} = 0.2$, $F_\text{b} = 0.1$ and damping finger position $\stringx_\text{f} = 0.5\stringx_\text{sm}$ and damping $\sigma_\text{f} = 0.1$ to induce the lowest harmonic.}
   \label{fig:waveforms}
 \end{figure}
 
@@ -693,7 +697,7 @@ Disabling the graphics of the application, its CPU usage is 68.9\% on a MacBook 
 Through using the application, we found some odd behaviour, where the bridge `gets stuck' behind the plate, i.e., values for $\psi_\text{mp}$ would be negative for a short period of time (one to several samples). The explicit technique used in this work allows for this to happen (and can be proven to still be stable in this case \cite{Ducceschi2019}), but it is ``unphysical" to have a negative potential as this implies a ``pulling" collision. As can be seen from Table \ref{tab:parameters}, the nonlinear collision coefficients $\alpha_\text{sm}$ and $\alpha_\text{mp}$ are set to $1$. When increasing these values, this behaviour would arise much more often, and even occur for a prolonged period of time (several seconds to indefinitely). This is also the reason why the reset button presented in Section \ref{sec:GUI} has been implemented%, to undo this negative potential
 . Further investigation will be necessary to figure out a way to prevent this behaviour.
 
-Lastly, it has been found that when $|\up_{(l,m)}^n| \lessapprox 10^{-306}$ for any coordinate $(l,m)$ (which happens when the body has not been collided with for a prolonged period of time), the CPU usage increases considerably. This could be explained by the fact that calculations with values close to the smallest value that the computer can describe, are handled differently by the application. \SWcomment[Maybe we should ask Craig about this..] This is solved by implementing a limit to how small a value for $\up_{(l,m)}^n$ can be. If the value of $\up_{(l_\text{sm},m_\text{sm})}^n$ is lower than this limit, the total plate state is set to $0$.
+Lastly, it has been found that when $|\up_{(l,m)}^n| \lessapprox 10^{-306}$ for any coordinate $(l,m)$ (which happens when the body has not been collided with for a prolonged period of time), the CPU usage increases considerably. This could be explained by the fact that calculations with values close to the smallest value that the computer can describe, are handled differently by the application. \SWcomment[Maybe we should ask Craig about this..] This is solved by implementing a limit to how small a value for $\up_{(l,m)}^n$ can be. If the value of $\up_{(l_\text{sm},m_\text{sm})}^n$ is lower than this limit, the total plate state is set to $0$. 
 
 \section{Conclusion and Future Work}\label{sec:conclusion}
 In this paper, a real-time implementation of a simulation of the tromba marina has been presented. The output sound has been found natural and brass-like by the authors and exhibited similar qualities when compared to a recreated tromba marina.
